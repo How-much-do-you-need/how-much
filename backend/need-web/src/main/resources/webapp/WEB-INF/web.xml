@@ -18,6 +18,16 @@
       <welcome-file>index.jsp</welcome-file>
       <welcome-file>welcome.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- CORS setting -->
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>com.howmuch.needweb.web.filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>http://localhost:8080/</url-pattern>
+    </filter-mapping>
     
 </web-app>
 

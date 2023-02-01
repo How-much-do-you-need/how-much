@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @EnableTransactionManagement
 @SpringBootApplication
@@ -24,5 +25,7 @@ public class NeedWebApplication {
 		model.addAttribute("id", id);
 		return "main";
 	}
+
+
 
 }
