@@ -1,4 +1,4 @@
-import {IS_VALID_EMAIL, IS_VALID_PASSWORD, LOGIN_EMAIL, LOGIN_PASSWORD, MESSAGE_EMAIL, MESSAGE_PASSWORD} from "../typeMessage/typeMessage";
+import {IS_VALID_EMAIL, IS_VALID_PASSWORD, LOGIN_EMAIL, LOGIN_PASSWORD, MESSAGE_EMAIL, MESSAGE_PASSWORD, LOGIN_STATUS} from "../typeMessage/typeMessage";
 
 export const isValidEmail = (isEmail) => ({
     type: IS_VALID_EMAIL,
@@ -27,4 +27,9 @@ export const loginEmail = typedEmail => ({
 export const loginPassword = typedPassword => ({
     type: LOGIN_PASSWORD,
     typedPassword,
+});
+
+export const checkLoginStatus = status => ({
+    type: LOGIN_STATUS,
+    status,
 });

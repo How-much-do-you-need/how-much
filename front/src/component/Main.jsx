@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -60,13 +61,17 @@ export default function Main() {
     },
   ];
 
+  const currentLoginStatus = useSelector(state => state.loginStatus);
+
+  useEffect(()=>{
+    console.log("상태", currentLoginStatus);
+  })
+
   return (
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        <Link to="/login">
-          <h1>to log in</h1>
-        </Link>
+        {currentLoginStatus ? <button>Logout</button> : <Link to="/login"><h1>to log in</h1></Link>}
       </MainNav>
 
       <MainDiv>
