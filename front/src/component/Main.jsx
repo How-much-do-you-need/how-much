@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function Main() {
   const dummyData = [
@@ -60,6 +61,29 @@ export default function Main() {
     },
   ];
 
+  // fetch("http://localhost:8080/auth")
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  const [first, setfirst] = useState("실패");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/auth/idCheck", {
+        id: "minholee",
+      })
+      .then(function (response) {
+        console.log(response);
+        setfirst("성공");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
       <MainNav>
@@ -68,9 +92,9 @@ export default function Main() {
           <h1>to log in</h1>
         </Link>
       </MainNav>
-
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
+        <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
           {dummyData.map((ob) => {
             const card = (
