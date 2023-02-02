@@ -13,8 +13,13 @@ import java.util.*;
 
 @Service
 public class DefaultMemberService implements MemberService {
+//  @Autowired
+  private final MemberDao memberDao;
+
   @Autowired
-  MemberDao memberDao;
+  public DefaultMemberService(MemberDao memberDao) {
+    this.memberDao = memberDao;
+  }
 
   @Override
   public Member idCheck(String id) throws Exception {

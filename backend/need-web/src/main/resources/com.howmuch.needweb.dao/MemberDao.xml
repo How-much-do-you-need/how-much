@@ -21,7 +21,7 @@
 
     <!--회원 추가-->
     <insert id="join" parameterType="Member">
-        insert into jang_member(ID,PWD,NAME,EMAIL,NNAME,PNUM)
+        insert into how_member(ID,PWD,NAME,EMAIL,NNAME,PNUM)
         values(#{id},sha2(#{password},256),#{name},#{email},#{nickName},#{phoneNo})
     </insert>
 
@@ -35,7 +35,7 @@
             NAME,
             EMAIL
         from
-            jang_member
+            how_member
         where
             ID=#{id} and PWD=sha2(#{password},256)
     </select>
@@ -44,7 +44,7 @@
         select
             ID
         from
-            jang_member
+            how_member
         where
             ID=#{id}
     </select>
@@ -53,7 +53,7 @@
         select
             NNAME
         from
-            jang_member
+            how_member
         where
             NNAME=#{nickName}
     </select>
@@ -62,7 +62,7 @@
         select
             EMAIL, PNUM
         from
-            jang_member
+            how_member
         where
             EMAIL=#{email}
     </select>
@@ -71,7 +71,7 @@
         select
             EMAIL, PNUM
         from
-            jang_member
+            how_member
         where
             PNUM=#{phoneNo}
     </select>
@@ -81,7 +81,7 @@
         select
         *
         from
-        jang_member
+            how_member
         order by
         ID = #{id}
     </select>
@@ -90,19 +90,19 @@
         select
         *
         from
-        jang_member
+            how_member
         where
         ID = #{id}
     </select>
 
     <delete id="delete">
-        delete from jang_member
+        delete from how_member
         where ID=#{id}
     </delete>
 
  <!--   pwd=sha2(#{password},256)-->
     <update id="update" parameterType="member">
-        update jang_member set
+        update how_member set
         <!--   pwd=sha2(#{password},256)-->
         nname=#{nickName},
         name=#{name},
@@ -117,7 +117,7 @@
         select
         *
         from
-        jang_member
+        how_member
         where
         name = #{name} and
         email= #{email}
@@ -127,7 +127,7 @@
         select
         *
         from
-        jang_member
+        how_member
         where
         id=#{id} and
         name = #{name} and
@@ -135,7 +135,7 @@
     </select>
 
     <update id="findpwdupdate" parameterType="map">
-        update jang_member set
+        update how_member set
         pwd=sha2(#{password},256)
         where
         id=#{id} and
