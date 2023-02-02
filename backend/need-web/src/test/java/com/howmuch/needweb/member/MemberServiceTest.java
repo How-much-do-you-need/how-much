@@ -2,6 +2,7 @@ package com.howmuch.needweb.member;
 
 
 import com.howmuch.needweb.WebConfig;
+import com.howmuch.needweb.service.DefaultMemberService;
 import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.vo.Member;
 import org.junit.jupiter.api.Test;
