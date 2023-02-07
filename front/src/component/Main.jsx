@@ -72,17 +72,27 @@ export default function Main() {
   const [first, setfirst] = useState("실패");
 
   useEffect(() => {
+    console.log("교신중");
+    // axios
+    //   .post("/auth/idCheck", null, {params: {id: "wintermingu"}})
+    //   .then(function (response) {
+    //     console.log(response);
+    //     setfirst(`[성공]`);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error + "에러");
+    //   });
     axios
-      .post("http://localhost:8080/auth/idCheck", {
-        id: "minholee",
-      })
+      .post("/auth/idCheck", "aksdlskdf")
       .then(function (response) {
         console.log(response);
-        setfirst("성공");
+        setfirst(`[성공]`);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error + "에러");
       });
+
+
   }, []);
   return (
     <>

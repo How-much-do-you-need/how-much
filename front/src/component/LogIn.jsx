@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { isValidEmail, isValidPassword, setEmailMessage, setPasswordMessage, loginEmail, loginPassword} from "../modules/actions";
+import { isValidEmail, isValidPassword, setEmailMessage, setPasswordMessage, loginEmail, loginPassword, checkLoginStatus } from "../modules/actions";
 
 
-export default function LogIn() {
+export default function LogIn(props) {
   const { email, password } = useSelector(state => state.loginData);
   const { isEmail, isPassword } = useSelector(state => state.isLoginValid);
   const { emailMessage, passwordMessage } = useSelector(state => state.loginMsg);
 
-  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const dispatchEmailIsValid = (typedEmail) => {
     dispatch(loginEmail(typedEmail));
@@ -68,10 +68,12 @@ export default function LogIn() {
   // form이 제출되었을 때 실행
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("Login 정보");
-
-    console.log(`입력한 아이디: ${email}`);
-    console.log(`입력한 비밀번호: ${password}`);
+    dispatch(checkLoginStatus(true));
+    // sessionStorage.setItem("loginStatus", true);
+    // const sesstionSttus = sessionStorage.getItem("loginStatus");
+    navigate('/');
+    // console.log(`입력한 아이디: ${email}`);
+    // console.log(`입력한 비밀번호: ${password}`);
   }
 
   return (
