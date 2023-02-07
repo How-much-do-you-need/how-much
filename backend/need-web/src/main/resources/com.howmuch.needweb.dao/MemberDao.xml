@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.howmuch.needweb.dao.MemberDao">
+
+    <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결 -->
+    <resultMap type="member" id="memberMap">
+        <id column="ID" property="id"/>
+        <result column="PWD" property="password"/>
+        <result column="NNAME" property="nickName"/>
+        <result column="SIDATE" property="createdDate"/>
+        <result column="PROFILE" property="profileFig"/>
+        <result column="NAME" property="name"/>
+        <result column="EMAIL" property="email"/>
+        <result column="PNUM" property="phoneNo"/>
+        <result column="BIRTH" property="birthDay"/>
+        <result column="GENDER" property="gender"/>
+
+    </resultMap>
+
+    <!--회원 추가-->
+    <insert id="join" parameterType="Member">
+        insert into jang_member(ID,PWD,NAME,EMAIL,NNAME,PNUM)
+        values(#{id},sha2(#{password},256),#{name},#{email},#{nickName},#{phoneNo})
+    </insert>
+
+    <!--로그인 조회-->
+    <select id="findByIdPassword" resultMap="memberMap">
+        select
+            ID,
+            NNAME,
+            SIDATE,
+            PROFILE,
+            NAME,
+            EMAIL
+        from
+            jang_member
+        where
+            ID=#{id} and PWD=sha2(#{password},256)
+    </select>
+
+    <select id="findById" resultMap="memberMap">
+        select
+            ID
+        from
+            jang_member
+        where
+            ID=#{id}
+    </select>
+
+    <select id="findByNickName" resultMap="memberMap">
+        select
+            NNAME
+        from
+            jang_member
+        where
+            NNAME=#{nickName}
+    </select>
+
+    <select id="findByEmail" resultMap="memberMap">
+        select
+            EMAIL, PNUM
+        from
+            jang_member
+        where
+            EMAIL=#{email}
+    </select>
+
+    <select id="findByPhoneNo" resultMap="memberMap">
+        select
+            EMAIL, PNUM
+        from
+            jang_member
+        where
+            PNUM=#{phoneNo}
+    </select>
+
+
+    <select id="findAll" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        order by
+        ID = #{id}
+    </select>
+
+    <select id="findByIdAll" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        where
+        ID = #{id}
+    </select>
+
+    <delete id="delete">
+        delete from jang_member
+        where ID=#{id}
+    </delete>
+
+ <!--   pwd=sha2(#{password},256)-->
+    <update id="update" parameterType="member">
+        update jang_member set
+        <!--   pwd=sha2(#{password},256)-->
+        nname=#{nickName},
+        name=#{name},
+        pnum=#{phoneNo},
+        birth=#{birthDay},
+        gender=#{gender}
+        where
+        id=#{id};
+    </update>
+
+    <select id="findId" parameterType="map" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        where
+        name = #{name} and
+        email= #{email}
+    </select>
+
+    <select id="findpwd" parameterType="map" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        where
+        id=#{id} and
+        name = #{name} and
+        email= #{email}
+    </select>
+
+    <update id="findpwdupdate" parameterType="map">
+        update jang_member set
+        pwd=sha2(#{password},256)
+        where
+        id=#{id} and
+        name = #{name} and
+        email= #{email}
+    </update>
+
+
+</mapper>

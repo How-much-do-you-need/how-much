@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function Main() {
   const dummyData = [
@@ -61,21 +61,50 @@ export default function Main() {
     },
   ];
 
-  const currentLoginStatus = useSelector(state => state.loginStatus);
+  // fetch("http://localhost:8080/auth")
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  const [first, setfirst] = useState("실패");
 
-  useEffect(()=>{
-    console.log("상태", currentLoginStatus);
-  })
+  useEffect(() => {
+    console.log("교신중");
+    // axios
+    //   .post("/auth/idCheck", null, {params: {id: "wintermingu"}})
+    //   .then(function (response) {
+    //     console.log(response);
+    //     setfirst(`[성공]`);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error + "에러");
+    //   });
+    axios
+      .post("/auth/idCheck", "aksdlskdf")
+      .then(function (response) {
+        console.log(response);
+        setfirst(`[성공]`);
+      })
+      .catch(function (error) {
+        console.log(error + "에러");
+      });
 
+
+  }, []);
   return (
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        {currentLoginStatus ? <button>Logout</button> : <Link to="/login"><h1>to log in</h1></Link>}
+        <Link to="/login">
+          <h1>to log in</h1>
+        </Link>
       </MainNav>
-
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
+        <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
           {dummyData.map((ob) => {
             const card = (
