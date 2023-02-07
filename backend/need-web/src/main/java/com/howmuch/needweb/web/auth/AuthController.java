@@ -122,6 +122,7 @@ public class AuthController {
 
     if (member != null) {
       session.setAttribute("loginMember", member); // 로그인한 멤버 정보를 세션 보관소에 저장
+//      Member loginTestMember = (Member) session.getAttribute("loginMember");
     }
 
     // 클라이언트에게 쿠키 보내기
@@ -151,4 +152,12 @@ public class AuthController {
     return "redirect:../";
   }
 
+  @GetMapping("checkLogin")
+  public Boolean checkLogin(HttpSession session) throws Exception {
+    if(session.getAttribute("loginMember") == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
