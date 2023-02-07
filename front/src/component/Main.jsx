@@ -73,15 +73,6 @@ export default function Main() {
 
   useEffect(() => {
     console.log("교신중");
-    // axios
-    //   .post("/auth/idCheck", null, {params: {id: "wintermingu"}})
-    //   .then(function (response) {
-    //     console.log(response);
-    //     setfirst(`[성공]`);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error + "에러");
-    //   });
     axios
       .post("/auth/idCheck", "aksdlskdf")
       .then(function (response) {
@@ -91,8 +82,6 @@ export default function Main() {
       .catch(function (error) {
         console.log(error + "에러");
       });
-
-
   }, []);
   return (
     <>
@@ -100,6 +89,9 @@ export default function Main() {
         <MainLogo>얼마면 돼</MainLogo>
         <Link to="/login">
           <h1>to log in</h1>
+        </Link>
+        <Link to="/register">
+          <h1>to register</h1>
         </Link>
       </MainNav>
       <MainDiv>
