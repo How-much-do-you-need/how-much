@@ -15,7 +15,6 @@
         <result column="PNUM" property="phoneNo"/>
         <result column="BIRTH" property="birthDay"/>
         <result column="GENDER" property="gender"/>
-
     </resultMap>
 
     <!--회원 추가-->
@@ -40,7 +39,7 @@
 
     <select id="findById" resultMap="memberMap">
         select
-            ID
+            *
         from
             how_member
         where

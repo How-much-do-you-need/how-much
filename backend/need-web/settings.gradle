@@ -1,1 +1,2 @@
 rootProject.name = 'need-web'
+include('app')

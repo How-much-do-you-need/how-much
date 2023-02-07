@@ -13,7 +13,7 @@ import java.util.*;
 
 @Service
 public class DefaultMemberService implements MemberService {
-//  @Autowired
+  @Autowired
   private final MemberDao memberDao;
 
   @Autowired

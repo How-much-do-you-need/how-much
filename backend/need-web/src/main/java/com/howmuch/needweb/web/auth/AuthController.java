@@ -28,9 +28,14 @@ public class AuthController {
 
   @ResponseBody
   @PostMapping("idCheck")
-  public String idCheck(String id) throws Exception {
+  public String idCheck(@RequestParam String id) throws Exception {
     String filter = "^[a-z0-9]*$";
+
+    System.out.println("id = " + id);
+
     Member result = memberService.idCheck(id);
+
+
 
     return inputCheck(id, result, filter);
   }
