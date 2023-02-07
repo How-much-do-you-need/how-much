@@ -74,7 +74,7 @@ export default function Main() {
   useEffect(() => {
     console.log("교신중");
     axios
-      .post("/auth/idCheck", "aksdlskdf")
+      .post("/auth/idCheck", null, {params: {id: "user1"}})
       .then(function (response) {
         console.log(response);
         setfirst(`[성공]`);
