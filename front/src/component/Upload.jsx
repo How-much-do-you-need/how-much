@@ -58,8 +58,6 @@ export default function Upload() {
     }
 
 
-    
-
     return (
         <UploadContainer>
             <UploadForm onSubmit={onImgFormSubmit}>
@@ -81,7 +79,6 @@ export default function Upload() {
                 <div>
                     {loading ? <SpinnerImg src={spin} alt="" /> : <></>}
                     {imgUploadStatus ? <Img src={imgUrl} alt="" /> : <></>}
-
                 </div>
             </UploadForm>
         </UploadContainer>
