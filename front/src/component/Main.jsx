@@ -93,6 +93,9 @@ export default function Main() {
         <Link to="/register">
           <h1>to register</h1>
         </Link>
+        <Link to="/upload">
+          <h1>상품 등록하러가기</h1>
+        </Link>
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
