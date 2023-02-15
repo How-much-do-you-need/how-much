@@ -93,7 +93,9 @@ public class AuthController {
   public String join(String email, String phoneNo, Member member, Model model) throws Exception {
     // 가입정보가 제대로된 정보인지 확인
     if (email.length() < 5 || phoneNo.length() < 5) {
-      return "/auth/register";
+      System.out.println("email = " + email);
+      System.out.println("phoneNo = " + phoneNo);
+      return "/auth/register1";
     }
 
     // 가입정보가 중복인지 확인하고 문제없다면 가입처리
