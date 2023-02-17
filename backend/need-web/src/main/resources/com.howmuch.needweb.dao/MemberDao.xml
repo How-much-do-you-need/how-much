@@ -11,7 +11,6 @@
         <result column="NNAME" property="nickName"/>
         <result column="SIDATE" property="createdDate"/>
         <result column="NAME" property="name"/>
-        <result column="EMAIL" property="email"/>
         <result column="PNUM" property="phoneNo"/>
         <result column="BIRTH" property="birthDay"/>
         <result column="GENDER" property="gender"/>
@@ -19,8 +18,8 @@
 
     <!--회원 추가-->
     <insert id="join" parameterType="Member">
-        insert into how_member(ID,PWD,NAME,EMAIL,NNAME,PNUM)
-        values(#{id},sha2(#{password},256),#{name},#{email},#{nickName},#{phoneNo})
+        insert into how_member(ID,PWD,NAME,NNAME,PNUM)
+        values(#{id},sha2(#{password},256),#{name},#{nickName},#{phoneNo})
     </insert>
 
     <!--로그인 조회-->
@@ -29,8 +28,7 @@
             ID,
             NNAME,
             SIDATE,
-            NAME,
-            EMAIL
+            NAME
         from
             how_member
         where
@@ -55,18 +53,18 @@
             NNAME=#{nickName}
     </select>
 
-    <select id="findByEmail" resultMap="memberMap">
-        select
-            EMAIL, PNUM
-        from
-            how_member
-        where
-            EMAIL=#{email}
-    </select>
+<!--    <select id="findByEmail" resultMap="memberMap">-->
+<!--        select-->
+<!--            EMAIL, PNUM-->
+<!--        from-->
+<!--            how_member-->
+<!--        where-->
+<!--            EMAIL=#{email}-->
+<!--    </select>-->
 
     <select id="findByPhoneNo" resultMap="memberMap">
         select
-            EMAIL, PNUM
+            *
         from
             how_member
         where
@@ -117,7 +115,7 @@
         how_member
         where
         name = #{name} and
-        email= #{email}
+        pnum= #{phoneNo}
     </select>
 
     <select id="findpwd" parameterType="map" resultMap="memberMap">
@@ -128,7 +126,7 @@
         where
         id=#{id} and
         name = #{name} and
-        email= #{email}
+        pnum= #{phoneNo}
     </select>
 
     <update id="findpwdupdate" parameterType="map">
@@ -137,7 +135,7 @@
         where
         id=#{id} and
         name = #{name} and
-        email= #{email}
+        pnum= #{phoneNo}
     </update>
 
 

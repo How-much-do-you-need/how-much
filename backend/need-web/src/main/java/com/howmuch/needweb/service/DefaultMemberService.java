@@ -37,8 +37,8 @@ public class DefaultMemberService implements MemberService {
   }
 
   @Override
-  public boolean join(String email, String phoneNo, Member member) throws Exception {
-    if (memberDao.findByEmail(email) != null
+  public boolean join(String id, String phoneNo, Member member) throws Exception {
+    if (memberDao.findById(id) != null
         || memberDao.findByPhoneNo(phoneNo) != null) {
       return false;
     }
@@ -51,10 +51,10 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByPhoneNo(phoneNo);
   }
 
-  @Override
-  public Member emailCheck(String email) throws Exception {
-    return memberDao.findByEmail(email);
-  }
+//  @Override
+//  public Member emailCheck(String email) throws Exception {
+//    return memberDao.findByEmail(email);
+//  }
 
   @Transactional
   @Override
@@ -109,7 +109,7 @@ public class DefaultMemberService implements MemberService {
     MimeMessage message = new MimeMessage(session);
     message.setFrom(new InternetAddress(id));
 
-    message.addRecipient(Message.RecipientType.TO, new InternetAddress(member.getEmail()));
+    message.addRecipient(Message.RecipientType.TO, new InternetAddress(member.getId()));
     message.setSubject("HowMuchDoYouNeed 임시 비밀번호를 발급해드립니다.");
     message.setText("안녕하세요 회원님 HowMuchDoYouNeed 의 임시비밀번호 발송해드립니다\n" + " 회원님의 임시비밀번호는" +
                     "임시 비밀번호: " + newPw);

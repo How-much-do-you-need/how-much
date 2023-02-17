@@ -16,7 +16,6 @@ public class Member implements Serializable {
   private String nickName;
   private Date createdDate;
   private String name;
-  private String email;
   private String phoneNo;
   private Date birthDay;
   private String gender;
