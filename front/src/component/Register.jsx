@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {registerId, regiserPassword, registerNickName} from "../modules/actions"
+import {registerId, regiserPassword, registerNickName, registerName, registerPhone, registerBirthDay, registerSex} from "../modules/actions"
 import axios from "axios";
 import {
   isValidEmail,
@@ -14,7 +14,7 @@ import {
 
 export default function Register() {
 
-    const {regEmail, regPassword, regNickname} = useSelector(state => state.userRegiser);
+    const {regEmail, regPassword, regNickname, regName, regPhone, regBirthDay, regSex} = useSelector(state => state.userRegiser);
     const { emailMessage, passwordMessage } = useSelector((state) => state.loginMsg);
     const { isEmail, isPassword } = useSelector((state) => state.isLoginValid);
 
@@ -84,9 +84,51 @@ export default function Register() {
     };
 
 
+    // checkbox 성별
+    const checkOnMale = (e) => {
+      const sex = e.target.value;
+      dispatch(registerSex(sex))
+    }
+    const checkOnFamale = (e) => {
+      const sex = e.target.value;
+      console.log(sex);
+    }
+
+    // 이름
+    const onRealNameHandler = (e) => {
+      const typedName = e.target.value;
+      dispatch(registerName(typedName));
+    }
+
+    // 핸드폰 번호
+    const onPhoneNumberHandler = (e) => {
+      const typedPhoneNumber = e.target.value;
+      dispatch(registerPhone(typedPhoneNumber));
+    }
+
+    // 생년월일
+    const onBirthDayHandler = (e) => {
+      const typedBirthDay = e.target.value;
+      dispatch(registerBirthDay(typedBirthDay));
+
+    }
+
     const onRegisterSubmitHandler = (e) => {
         e.preventDefault();
-        console.log(regEmail, regPassword, regNickname);
+        // console.log(regEmail, regPassword, regNickname, regName, regPhone, regBirthDay, regSex);
+
+        const userRegiInfo = {
+          id: regEmail,
+          password: regPassword,
+          nickName: regNickname,
+          createDate: "2023/01/23",
+          name: regName,
+          phoneNo: regPhone,
+          birthDay: regBirthDay,
+          gender: regSex,
+        }
+
+        console.log(userRegiInfo);
         
         // axios.post("/auth/Join", {email: regEmail, password: regPassword, nickname:regNickname})
         //     .then((res) => {
@@ -105,36 +147,67 @@ export default function Register() {
 
           <RegisterForm onSubmit={onRegisterSubmitHandler}>
               <RegisterIp>
-              <InputDiv>
-                  <p>아이디 입력해주세요</p>
-                  <InputRegisterId
-                  type="text"
-                  onChange={onRegisterEmailHandler}
-                  required
-                  />
-                  <p style={{ color: isEmail ? "green" : "red" }}>{emailMessage}</p>
-              </InputDiv>
+                <InputDiv>
+                    <p>아이디 입력해주세요</p>
+                    <InputRegisterId
+                    type="text"
+                    onChange={onRegisterEmailHandler}
+                    required
+                    />
+                    <p style={{ color: isEmail ? "green" : "red" }}>{emailMessage}</p>
+                </InputDiv>
 
-              <InputDiv>
-                  <p>비밀번호를 입력해주세요</p>
-                  <InputRegisterId
-                  type="password"
-                  onChange={onRegisterPasswordHandler}
-                  required
-                  />
-                  <p style={{ color: isPassword ? "green" : "red" }}>
-                  {passwordMessage}
-                  </p>
-              </InputDiv>
+                <InputDiv>
+                    <p>비밀번호를 입력해주세요</p>
+                    <InputRegisterId
+                    type="password"
+                    onChange={onRegisterPasswordHandler}
+                    required
+                    />
+                    <p style={{ color: isPassword ? "green" : "red" }}>
+                    {passwordMessage}
+                    </p>
+                </InputDiv>
 
-              <InputDiv>
-                  <p>닉네임을 입력해주세요</p>
-                  <InputRegisterId
-                  type="text"
-                  onChange={onRegisterNickNameHandler}
-                  required
-                  />
-              </InputDiv>
+                <InputDiv>
+                    <p>닉네임을 입력해주세요</p>
+                    <InputRegisterId
+                    type="text"
+                    onChange={onRegisterNickNameHandler}
+                    required
+                    />
+                </InputDiv>
+                <InputDiv>
+                    <p>이름을 입력해주세요</p>
+                    <InputRegisterId
+                    type="text"
+                    onChange={onRealNameHandler}
+                    required
+                    />
+                </InputDiv>
+                <InputDiv>
+                    <p>헨드폰번호를 입력해주세요</p>
+                    <InputRegisterId
+                    type="text"
+                    placeholder="-를 제외하고 입력해주세요"
+                    onChange={onPhoneNumberHandler}
+                    required
+                    />
+                </InputDiv>
+                <InputDiv>
+                    <p>생년월일을 입력해주세요</p>
+                    <InputRegisterId
+                    type="text"
+                    placeholder="YYYY / MM / DD"
+                    onChange={onBirthDayHandler}
+                    required
+                    />
+                </InputDiv>
+                <CheckBoxDiv>
+                    <p>성별 입력해주세요</p>
+                    <label htmlFor=""><input type="checkbox" value="male" onClick={checkOnMale}/>남자</label>
+                    <label htmlFor=""><input type="checkbox" value="female" onClick={checkOnFamale}/>여자</label>
+                </CheckBoxDiv>
               </RegisterIp>
 
               <RegiB>
@@ -155,8 +228,10 @@ export default function Register() {
 const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   max-width: 600px;
   width: 100%;
+  height: 100vh;
 `
 
 const RegisterMain = styled.div`
@@ -164,28 +239,34 @@ const RegisterMain = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ececec;
   width: 100%;
   height: 100vh;
+  flex-wrap: wrap;
   text-align: center;
   font-size: 12px;
 `;
 const RegisterIp = styled.div`
-  margin-top: 30px;
+  // margin-top: 30px;
 `;
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  margin: 20px 0px;
+  margin: 5px 0px;
 `;
+
+const CheckBoxDiv = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const InputRegisterId = styled.input`
   width: 100%;
   border: none;
   border-bottom: 2px solid gray;
-  font-size: 22px;
-  background-color: #ececec;
+  font-size: 20px;
+  // background-color: #ececec;
   &:focus {
       outline: none;
       border-color: black;

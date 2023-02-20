@@ -1,4 +1,4 @@
-import {IS_VALID_EMAIL, IS_VALID_PASSWORD, LOGIN_EMAIL, LOGIN_PASSWORD, MESSAGE_EMAIL, MESSAGE_PASSWORD, LOGIN_STATUS, REGISTER_ID, REGISTER_PASSWORD, REGISTER_NICKNAME} from "../typeMessage/typeMessage";
+import {IS_VALID_EMAIL, IS_VALID_PASSWORD, LOGIN_EMAIL, LOGIN_PASSWORD, MESSAGE_EMAIL, MESSAGE_PASSWORD, LOGIN_STATUS, REGISTER_ID, REGISTER_PASSWORD, REGISTER_NICKNAME, REGISTER_NAME, REGISTER_PHONE, REGISTER_BIRTH_DAY, REGISTER_SEX} from "../typeMessage/typeMessage";
 
 export const isValidEmail = (isEmail) => ({
     type: IS_VALID_EMAIL,
@@ -48,3 +48,20 @@ export const registerNickName = (regNickName) => ({
     type: REGISTER_NICKNAME,
     regNickName,
 });
+
+export const registerName = (regName) => ({
+    type: REGISTER_NAME,
+    regName,
+})
+export const registerPhone = (regPhone) => ({
+    type: REGISTER_PHONE,
+    regPhone,
+})
+export const registerBirthDay = (regBirthDay) => ({
+    type: REGISTER_BIRTH_DAY,
+    regBirthDay,
+})
+export const registerSex = (regSex) => ({
+    type: REGISTER_SEX,
+    regSex,
+})
