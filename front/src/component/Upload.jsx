@@ -9,6 +9,7 @@ export default function Upload() {
     const [imgUrl, setImgUrl] = useState("");
     const [productPrice, setUploadPrice] = useState("");
     const [productName, setProductName] = useState("");
+    const [productDesc, setProductDesc] = useState("");
 
     const inputImgRef = useRef();
 
@@ -16,9 +17,15 @@ export default function Upload() {
         e.preventDefault();
         const price = Number(productPrice.replace(",", ""))
 
-        console.log(`상품 이름: ${productName}`);
-        console.log(`원하는 가격: ${price} ${typeof price}`);
-        console.log(`이미지 주소: ${imgUrl}`);
+        const uploadData = {
+            uploadName: productName,
+            uploadPrice: price,
+            uploadDesc: productDesc,
+            uploadImg: imgUrl,
+        }
+
+
+        console.log(uploadData);
         
     }
     const onPriceHandler = (e) => {
@@ -39,6 +46,10 @@ export default function Upload() {
         setLoading(false);
         setImgUploadStatus(true);
         setImgUrl(imgUrl => uploadImg.secure_url);
+    }
+
+    const onDescHandler = (e) => {
+        setProductDesc(e.target.value);
     }
 
     const uploadOnCloudinary = async (file) => {
@@ -69,6 +80,10 @@ export default function Upload() {
                     <UploadDiv>
                         <label htmlFor="price">원하는 가격</label>
                         <UploadPriceInput name="price" id="price" type="text" onChange={onPriceHandler} value={productPrice}/>
+                    </UploadDiv>
+                    <UploadDiv>
+                        <label htmlFor="price">상품 설명</label>
+                        <UploadTextArea name="price" id="price" type="textarea" onChange={onDescHandler}/>
                     </UploadDiv>
                     <UploadDiv>
                         <ImgLabel htmlFor="img">상품의 이미지를 올려주세요</ImgLabel>
@@ -115,6 +130,13 @@ const UploadInput = styled.input`
         outline: none;
         border-color: black;
     }
+`
+
+const UploadTextArea = styled.textarea`
+    width: 100%;
+    min-height: 100px;
+    background-color: transparent;
+    font-size: 20px;
 `
 const UploadPriceInput = styled.input`
     border: none;
