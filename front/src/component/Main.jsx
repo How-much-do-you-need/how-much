@@ -128,7 +128,6 @@ export default function Main() {
   useEffect(() => {
     console.log("교신중");
     axios
-      .post("/auth/idCheck", null, { params: { id: "mingu" } })
       .then(function (response) {
         console.log(response);
         setfirst(`[성공]`);
@@ -163,6 +162,9 @@ export default function Main() {
         </Link>
         <Link to="/register">
           <h1>to register</h1>
+        </Link>
+        <Link to="/upload">
+          <h1>상품 등록하러가기</h1>
         </Link>
       </MainNav>
       <MainDiv>

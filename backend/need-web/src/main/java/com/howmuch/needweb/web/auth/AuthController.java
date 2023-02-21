@@ -28,9 +28,14 @@ public class AuthController {
 
   @ResponseBody
   @PostMapping("idCheck")
-  public String idCheck(String id) throws Exception {
+  public String idCheck(@RequestParam String id) throws Exception {
     String filter = "^[a-z0-9]*$";
+
+    System.out.println("id = " + id);
+
     Member result = memberService.idCheck(id);
+
+
 
     return inputCheck(id, result, filter);
   }
@@ -88,7 +93,9 @@ public class AuthController {
   public String join(String email, String phoneNo, Member member, Model model) throws Exception {
     // 가입정보가 제대로된 정보인지 확인
     if (email.length() < 5 || phoneNo.length() < 5) {
-      return "/auth/register";
+      System.out.println("email = " + email);
+      System.out.println("phoneNo = " + phoneNo);
+      return "/auth/register1";
     }
 
     // 가입정보가 중복인지 확인하고 문제없다면 가입처리
@@ -117,6 +124,7 @@ public class AuthController {
 
     if (member != null) {
       session.setAttribute("loginMember", member); // 로그인한 멤버 정보를 세션 보관소에 저장
+//      Member loginTestMember = (Member) session.getAttribute("loginMember");
     }
 
     // 클라이언트에게 쿠키 보내기
@@ -146,4 +154,12 @@ public class AuthController {
     return "redirect:../";
   }
 
+  @GetMapping("checkLogin")
+  public Boolean checkLogin(HttpSession session) throws Exception {
+    if(session.getAttribute("loginMember") == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
