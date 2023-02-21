@@ -7,7 +7,79 @@ export default function Main() {
   const dummyData = [
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸1",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸2",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸3",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸4",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸5",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸6",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸7",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸8",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸9",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸10",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸11",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸12",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸13",
       currentPrice: "1000",
       stack: 1,
     },
@@ -19,43 +91,25 @@ export default function Main() {
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸14",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸15",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸16",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸17",
       currentPrice: "1000",
       stack: 1,
     },
@@ -74,7 +128,7 @@ export default function Main() {
   useEffect(() => {
     console.log("교신중");
     axios
-      .post("/auth/idCheck", null, {params: {id: "user1"}})
+    .post("/auth/idCheck", null, {params: {id: "user1"}})
       .then(function (response) {
         console.log(response);
         setfirst(`[성공]`);
@@ -83,6 +137,23 @@ export default function Main() {
         console.log(error + "에러");
       });
   }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleClickNext = () => {
+    if (currentPage < Math.ceil(dummyData.length / 9)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handleClickPrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const startIndex = (currentPage - 1) * 9;
+  const endIndex = startIndex + 9;
+  const data = dummyData.slice(startIndex, endIndex);
   return (
     <>
       <MainNav>
@@ -101,7 +172,7 @@ export default function Main() {
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
         <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
-          {dummyData.map((ob) => {
+          {data.map((ob) => {
             const card = (
               <div>
                 <img src={ob.img} alt="" />
@@ -112,10 +183,22 @@ export default function Main() {
             return card;
           })}
         </CardBox>
+        <ButtomDiv>
+          <button onClick={handleClickPrev}>이전 페이지</button>
+          {currentPage}
+          <button onClick={handleClickNext}>다음 페이지</button>
+        </ButtomDiv>
       </MainDiv>
     </>
   );
 }
+const ButtomDiv = styled.div`
+  display: flex;
+  margin: auto;
+  gap: 10px;
+  align-items: center;
+  margin-top: 70px;
+`;
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
