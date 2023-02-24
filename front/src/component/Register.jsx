@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   registerId,
@@ -35,6 +35,7 @@ export default function Register() {
   );
   const { isEmail, isPassword } = useSelector((state) => state.isLoginValid);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onRegisterNickNameHandler = (e) => {
@@ -144,13 +145,15 @@ export default function Register() {
 
     console.log(userRegiInfo);
 
-    // axios.post("/auth/Join", {email: regEmail, password: regPassword, nickname:regNickname})
-    //     .then((res) => {
-    //         console.log(res);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     })
+    axios
+      .post("/auth/join", { ...userRegiInfo })
+      .then((res) => {
+        console.log(res);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(11, err);
+      });
   };
 
   return (

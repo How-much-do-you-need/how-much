@@ -90,19 +90,24 @@ public class AuthController {
   }
 
   @PostMapping("join")
-  public String join(String email, String phoneNo, Member member, Model model) throws Exception {
-    // 가입정보가 제대로된 정보인지 확인
-    if (email.length() < 5 || phoneNo.length() < 5) {
-      System.out.println("email = " + email);
-      System.out.println("phoneNo = " + phoneNo);
+  public String join(@RequestBody Member member, Model model) throws Exception {
+    System.out.println(12121212);
+    System.out.println(member);
+    //가입정보가 제대로된 정보인지 확인
+    if (member.getId().length() < 5 || member.getPhoneNo().length() < 5) {
+      System.out.println("email = " + member.getId());
+      System.out.println("phoneNo = " + member.getPhoneNo());
+      System.out.println(1);
       return "/auth/register1";
     }
 
     // 가입정보가 중복인지 확인하고 문제없다면 가입처리
-    if(memberService.join(email, phoneNo, member)) {
+    if(memberService.join(member.getId(), member.getPhoneNo(), member)) {
+      System.out.println(2);
       return "/auth/joinResult";
     }
 
+    System.out.println(3);
     // 이 외의 모든 올바르지 않은 가입정보에 대해 가입정보 재입력 강제하기
     model.addAttribute("checkResult", "false");
     return "/auth/register";
@@ -113,10 +118,9 @@ public class AuthController {
   }
 
   @PostMapping("login")
-  public ModelAndView login(
-          String id,
-          String password,
-          String saveEmail,
+  public Boolean login(
+          @RequestParam("id") String id,
+          @RequestParam("password")String password,
           HttpServletResponse response,
           HttpSession session) throws Exception {
 
@@ -124,7 +128,6 @@ public class AuthController {
 
     if (member != null) {
       session.setAttribute("loginMember", member); // 로그인한 멤버 정보를 세션 보관소에 저장
-//      Member loginTestMember = (Member) session.getAttribute("loginMember");
     }
 
     // 클라이언트에게 쿠키 보내기
@@ -133,19 +136,22 @@ public class AuthController {
 
     cookie.setPath("/");
 
-    if (saveEmail == null) {
-      cookie.setMaxAge(0); // 클라이언트에게 해당 이름의 쿠키를 지우라고 명령한다.
-    } else {
-      // 쿠키의 지속시간을 설정하지 않으면 웹브라우저가 실행되는 동안만 유효하다.
-      // 만약 웹브라우저를 종료하더라도 쿠키를 유지하고 싶다면,
-      // 지속 시간을 설정해야 한다.
-      cookie.setMaxAge(60 * 60 * 24 * 7);
-    }
+//    if (saveEmail == null) {
+//      cookie.setMaxAge(0); // 클라이언트에게 해당 이름의 쿠키를 지우라고 명령한다.
+//    } else {
+//      // 쿠키의 지속시간을 설정하지 않으면 웹브라우저가 실행되는 동안만 유효하다.
+//      // 만약 웹브라우저를 종료하더라도 쿠키를 유지하고 싶다면,
+//      // 지속 시간을 설정해야 한다.
+//      cookie.setMaxAge(60 * 60 * 24 * 7);
+//    }
     response.addCookie(cookie);
 
-    ModelAndView mv = new ModelAndView("/auth/loginResult");
-    mv.addObject("member", member);
-    return mv;
+//    ModelAndView mv = new ModelAndView("/auth/loginResult");
+//    mv.addObject("member", member);
+    if(member != null)
+      return true;
+    else
+      return false;
   }
 
   @GetMapping("logout")
