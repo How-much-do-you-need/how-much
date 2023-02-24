@@ -192,6 +192,7 @@ export default function Main() {
 
 const PageNumber = styled.h1`
   color: black;
+  
 `;
 
 const NiceBtn = styled.button`
