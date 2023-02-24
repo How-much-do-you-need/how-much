@@ -1,4 +1,4 @@
-import LOGIN_STATUS from '../typeMessage/typeMessage';
+import { LOGIN_STATUS } from '../typeMessage/typeMessage';
 
 const defaultLoginStatus = false;
 
