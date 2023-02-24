@@ -9,15 +9,15 @@ import java.util.List;
 @Mapper
 public interface ProductDao {
 
-    Product findByProduct(String prod_no);
+    Product findByProduct(int prod_no);
 
-    List<Product> findByCategory(String cat_no);
+    List<Product> findByCategory(int cat_no);
 
     int insertProduct(Product product);
 
     int update(Product product);
 
-    int delete(String prod_no);
+    int delete(int prod_no);
 
     List<Product> findAll();
 

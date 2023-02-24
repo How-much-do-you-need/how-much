@@ -5,20 +5,18 @@
 <mapper namespace="com.howmuch.needweb.dao.ProductDao">
     <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결 -->
     <resultMap type="product" id="productMap">
-        <id column="PROD" property="prod_no"/>
-        <result column="TITLE" property="title"/>
+        <id column="PROD_NO" property="prod_no"/>
+        <result column="PROD_NAME" property="prod_name"/>
         <result column="PRICE" property="price"/>
-        <result column="CONTENT" property="content"/>
-        <result column="WRITER" property="id"/>
-        <result column="CATEGORY" property="cat_no"/>
-        <result column="WDATE" property="writeDate"/>
-
+        <result column="CONT" property="cont"/>
+        <result column="ID" property="id"/>
+        <result column="CAT_NO" property="cat_no"/>
     </resultMap>
 
     <!--상품 추가-->
     <insert id="insertProduct" parameterType="Product">
-        insert into how_product(PROD,TITLE,PRICE,CONTENT,WRITER,CATEGORY, WDATE)
-        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no}, now())
+        insert into how_product(PROD_NO,PROD_NAME,PRICE,CONT,ID,CAT_NO)
+        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no})
     </insert>
 
     <!--상품 조회-->
@@ -29,7 +27,7 @@
         from
         how_product
         where
-        PROD = #{prod_no}
+        PROD_NO = #{prod_no}
     </select>
 
     <select id="findByCategory" resultMap="productMap">
@@ -38,7 +36,7 @@
         from
         how_product
         where
-        CATEGORY = #{cat_no}
+        CAT_NO = #{cat_no}
     </select>
 
     <select id="findAll" resultMap="productMap">
@@ -46,7 +44,6 @@
         *
         from
         how_product
-        order by WDATE DESC
     </select>
 
     <select id="findByWriterAll" resultMap="productMap">
@@ -55,22 +52,22 @@
         from
         how_product
         where
-        WRITER = #{id}
+        ID = #{id}
     </select>
 
     <delete id="delete">
         delete from how_product
-        where PROD=#{prod_no}
+        where PROD_NO=#{prod_no}
     </delete>
 
     <update id="update" parameterType="product">
         update how_product set
-        TITLE=#{title},
+        PROD_NAME=#{PROD_NAME},
         PRICE=#{price},
-        CONTENT=#{content},
-        WRITER=#{id},
-        CATEGORY=#={cat_no}
+        CONT=#{content},
+        ID=#{id},
+        CAT_NO=#={cat_no}
         where
-        PROD=#{prod_no};
+        PROD_NO=#{prod_no};
     </update>
 </mapper>
