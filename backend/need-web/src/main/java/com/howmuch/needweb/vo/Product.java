@@ -17,4 +17,5 @@ public class Product implements Serializable {
     private String cont;
     private String id;
     private int cat_no;
+    private String path;
 }
