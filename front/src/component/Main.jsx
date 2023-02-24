@@ -2,12 +2,86 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import {checkLoginStatus} from "../modules/actions";
 
 export default function Main() {
   const dummyData = [
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸1",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸2",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸3",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸4",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸5",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸6",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸7",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸8",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸9",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸10",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸11",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸12",
+      currentPrice: "1000",
+      stack: 1,
+    },
+    {
+      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
+      name: "스팸13",
       currentPrice: "1000",
       stack: 1,
     },
@@ -19,43 +93,25 @@ export default function Main() {
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸14",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸15",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸16",
       currentPrice: "1000",
       stack: 1,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
+      name: "스팸17",
       currentPrice: "1000",
       stack: 1,
     },
@@ -70,47 +126,101 @@ export default function Main() {
   //     console.log(error);
   //   });
   const [first, setfirst] = useState("실패");
+  const loginStatus = useSelector(state => state.loginStatus);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("교신중");
     axios
-      .post("http://localhost:8080/auth/idCheck", {
-        id: "minholee",
-      })
+      .post("/auth/idCheck", null, { params: { id: "user1" } })
       .then(function (response) {
         console.log(response);
-        setfirst("성공");
+        setfirst(`[성공]`);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error + "에러");
       });
   }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleClickNext = () => {
+    if (currentPage < Math.ceil(dummyData.length / 9)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handleClickPrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const onLogout = () => {
+    dispatch(checkLoginStatus(false));
+  }
+
+  const startIndex = (currentPage - 1) * 9;
+  const endIndex = startIndex + 9;
+  const data = dummyData.slice(startIndex, endIndex);
   return (
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        <Link to="/login">
-          <h1>to log in</h1>
-        </Link>
+        {loginStatus ? <MainLink to="/upload"><MainLogo>상품 등록하러가기</MainLogo></MainLink> : <></>}
+        {loginStatus ? <LogoutH onClick={onLogout}>로그아웃</LogoutH> : <MainLink to="/login"><MainLogo>로그인</MainLogo></MainLink>}
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
         <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
-          {dummyData.map((ob) => {
+          {data.map((ob) => {
             const card = (
               <div>
                 <img src={ob.img} alt="" />
                 <p>{ob.name}</p>
                 <p>{ob.currentPrice}</p>
               </div>
-            );
+            ); 
             return card;
           })}
         </CardBox>
+        <ButtomDiv>
+          <NiceBtn onClick={handleClickPrev}>이전</NiceBtn>
+          <PageNumber>{currentPage}</PageNumber>
+          <NiceBtn onClick={handleClickNext}>다음</NiceBtn>
+        </ButtomDiv>
       </MainDiv>
     </>
   );
 }
+
+const PageNumber = styled.h1`
+  color: black;
+
+`;
+
+const NiceBtn = styled.button`
+  background-color: #b2d260;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none; /* 밑줄 없앰 */
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+`;
+
+const ButtomDiv = styled.div`
+  display: flex;
+  margin: auto;
+  gap: 10px;
+  align-items: center;
+  margin-top: 70px;
+`;
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -150,3 +260,14 @@ const MainLogo = styled.h1`
   line-height: 1.35;
   color: white;
 `;
+const MainLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const LogoutH = styled.h1`
+  cursor: pointer;
+  color: white;
+  &: hover{
+    color: black;
+  }
+`

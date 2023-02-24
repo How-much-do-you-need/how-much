@@ -68,12 +68,12 @@ public class MemberController {
     return "redirect:list";
   }
 
-  @GetMapping("findid/{name}/{email}")
+  @GetMapping("findid/{name}/{pnum}")
   @ResponseBody
-  public String findId(@PathVariable("name") String name, @PathVariable("email") String email) throws Exception {
+  public String findId(@PathVariable("name") String name, @PathVariable("pnum") String pnum) throws Exception {
     Map<String, String> map = new HashMap();
     map.put("name", name);
-    map.put("email", email);
+    map.put("pnum", pnum);
 
     Member member = memberService.findId(map);
 
@@ -91,13 +91,13 @@ public class MemberController {
 
 
   //  비밀번호 찾기
-  @GetMapping("findpwd/{id}/{name}/{email}")
+  @GetMapping("findpwd/{id}/{name}/{pnum}")
   @ResponseBody
-  public String findpwd(@PathVariable("id") String id,@PathVariable("name") String name,@PathVariable("email") String email) throws Exception {
+  public String findpwd(@PathVariable("id") String id,@PathVariable("name") String name,@PathVariable("pnum") String pnum) throws Exception {
     Map<String, String> map = new HashMap();
     map.put("id", id);
     map.put("name", name);
-    map.put("email", email);
+    map.put("pnum", pnum);
 
     Member member = memberService.findpwd(map);
 
