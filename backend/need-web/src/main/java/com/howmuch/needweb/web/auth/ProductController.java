@@ -20,9 +20,6 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @PostMapping("write")
-    public void write(Product product, )
-
     @GetMapping("list")
     public void list(Model model) throws Exception{
         System.out.println("Product List");
