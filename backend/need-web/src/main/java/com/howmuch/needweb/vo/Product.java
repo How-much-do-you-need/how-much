@@ -11,12 +11,10 @@ import java.sql.Date;
 @Setter
 @ToString
 public class Product implements Serializable {
-    private String prod_no;
-    private String title;
-    private String price;
-    private String content;
+    private int prod_no;
+    private String prod_name;
+    private int price;
+    private String cont;
     private String id;
-    private String cat_no;
-    private Date writeDate;
-
+    private int cat_no;
 }

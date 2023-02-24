@@ -15,7 +15,7 @@ public class DefaultProductService implements ProductService{
     ProductDao productDao;
 
     @Override
-    public Product get(String prod_no) throws Exception{
+    public Product get(int prod_no) throws Exception{
         return productDao.findByProduct(prod_no);
     }
 
@@ -32,7 +32,7 @@ public class DefaultProductService implements ProductService{
 
     @Transactional
     @Override
-    public boolean delete(String prod_no) throws Exception{
+    public boolean delete(int prod_no) throws Exception{
         return productDao.delete(prod_no) > 0;
     }
     @Override
@@ -41,7 +41,7 @@ public class DefaultProductService implements ProductService{
     }
 
     @Override
-    public List<Product> searchCategory(String cat_no) throws Exception{
+    public List<Product> searchCategory(int cat_no) throws Exception{
         return productDao.findByCategory(cat_no);
     }
 
