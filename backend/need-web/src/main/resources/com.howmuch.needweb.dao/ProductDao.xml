@@ -11,12 +11,13 @@
         <result column="CONT" property="cont"/>
         <result column="ID" property="id"/>
         <result column="CAT_NO" property="cat_no"/>
+        <result column="PATH" property="path"/>
     </resultMap>
 
     <!--상품 추가-->
     <insert id="insertProduct" parameterType="Product">
-        insert into how_product(PROD_NO,PROD_NAME,PRICE,CONT,ID,CAT_NO)
-        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no})
+        insert into how_product(PROD_NO,PROD_NAME,PRICE,CONT,ID,CAT_NO, PATH)
+        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no}, #{path})
     </insert>
 
     <!--상품 조회-->
