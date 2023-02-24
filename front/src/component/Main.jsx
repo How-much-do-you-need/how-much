@@ -167,7 +167,7 @@ export default function Main() {
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        {loginStatus ? <></> : <MainLink to="/upload"><MainLogo>상품 등록하러가기</MainLogo></MainLink>}
+        {loginStatus ? <MainLink to="/upload"><MainLogo>상품 등록하러가기</MainLogo></MainLink> : <></>}
         {loginStatus ? <LogoutH onClick={onLogout}>로그아웃</LogoutH> : <MainLink to="/login"><MainLogo>로그인</MainLogo></MainLink>}
       </MainNav>
       <MainDiv>
