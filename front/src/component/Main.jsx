@@ -176,7 +176,7 @@ export default function Main() {
                 <p>{ob.name}</p>
                 <p>{ob.currentPrice}</p>
               </div>
-            );
+            ); 
             return card;
           })}
         </CardBox>
@@ -192,7 +192,7 @@ export default function Main() {
 
 const PageNumber = styled.h1`
   color: black;
-  
+
 `;
 
 const NiceBtn = styled.button`
