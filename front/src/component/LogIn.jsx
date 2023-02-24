@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import {
   isValidEmail,
   isValidPassword,
@@ -83,8 +84,36 @@ export default function LogIn(props) {
   // form이 제출되었을 때 실행
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(checkLoginStatus(true));
-    navigate("/");
+
+    const userLoginInfo = {
+      id: email,
+      password: password,
+    }
+    console.log(userLoginInfo);
+    axios
+    .post("/auth/login", null, {params: {id: email, password: password}})
+    .then((res) => {
+      console.log(res);
+     
+      if (res.data){
+        dispatch(checkLoginStatus(true));
+        navigate("/");
+      }else{
+        dispatch(
+          setPasswordMessage(
+            "비밀번호가 일치하지 않습니다."
+          )
+        );
+      }
+      
+      // navigate("/login");
+      })
+      .catch((err) => {
+        console.log("로그인 실패", err);
+      });
+
+
+    // navigate("/");
   };
 
   return (
