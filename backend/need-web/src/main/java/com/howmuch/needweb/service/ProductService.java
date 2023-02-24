@@ -18,4 +18,7 @@ public interface ProductService {
     List<Product> searchCategory(int cat_no) throws Exception;
 
     List<Product> searchWriter(String id) throws Exception;
+
+    boolean updatePrice(Product product) throws Exception;
+
 }

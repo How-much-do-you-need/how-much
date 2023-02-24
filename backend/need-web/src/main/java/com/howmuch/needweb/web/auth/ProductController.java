@@ -35,15 +35,15 @@ public class ProductController {
         System.out.println("product = " + product);
         productService.insert(product);
     }
-    @GetMapping("detail")
-    public void detail(int prod_no, Map map) throws Exception{
+    @PostMapping("detail")
+    public Product detail(int prod_no) throws Exception{
         Product product = productService.get(prod_no);
 
         if (product == null){
             throw new Exception("해당 게시물은 존재하지 않습니다.");
         }
 
-        map.put("product", product);
+        return product;
     }
 
     @PostMapping("update")
@@ -54,6 +54,14 @@ public class ProductController {
         return "redirect:list";
     }
 
+    @PostMapping("updatePrice")
+    public void updatePrice(@RequestBody Product product) throws Exception{
+        if(!productService.updatePrice(product)){
+            throw new Exception("가격 정보 변경 오류입니다.");
+        }
+        return;
+        //return "redirect:list";
+    }
     @GetMapping("delete")
     public String delete(int prod_id) throws Exception{
         if(!productService.delete(prod_id)){
@@ -62,18 +70,17 @@ public class ProductController {
         return "redirect:list";
     }
 
-    @PostMapping("findName/{id}")
+    @PostMapping("findName")
     @ResponseBody
-    public String findId(@PathVariable("id") String id)  throws Exception {
+    public List<Product> findId(String id)  throws Exception {
         Map<String, String> map = new HashMap();
         map.put("id", id);
-        System.out.println(id);
         List<Product> product = productService.searchWriter(id);
-        System.out.println(product.size());
         if (product == null) {
-            return "게시물이 존재하지 않습니다.";
+            System.out.println("게시물이 존재하지 않습니다.");
+            return null;
         }
-        return product.toString();
+        return product;
     }
 
     /*
