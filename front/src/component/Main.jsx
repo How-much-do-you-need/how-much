@@ -128,7 +128,7 @@ export default function Main() {
   useEffect(() => {
     console.log("교신중");
     axios
-    .post("/auth/idCheck", null, {params: {id: "user1"}})
+      .post("/auth/idCheck", null, { params: { id: "user1" } })
       .then(function (response) {
         console.log(response);
         setfirst(`[성공]`);
@@ -158,15 +158,12 @@ export default function Main() {
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        <Link to="/login">
-          <h1>to log in</h1>
-        </Link>
-        <Link to="/register">
-          <h1>to register</h1>
-        </Link>
-        <Link to="/upload">
-          <h1>상품 등록하러가기</h1>
-        </Link>
+        <MainLink to="/upload">
+          <MainLogo>상품 등록하러가기</MainLogo>
+        </MainLink>
+        <MainLink to="/login">
+          <MainLogo>로그인</MainLogo>
+        </MainLink>
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
@@ -184,14 +181,33 @@ export default function Main() {
           })}
         </CardBox>
         <ButtomDiv>
-          <button onClick={handleClickPrev}>이전 페이지</button>
-          {currentPage}
-          <button onClick={handleClickNext}>다음 페이지</button>
+          <NiceBtn onClick={handleClickPrev}>이전</NiceBtn>
+          <PageNumber>{currentPage}</PageNumber>
+          <NiceBtn onClick={handleClickNext}>다음</NiceBtn>
         </ButtomDiv>
       </MainDiv>
     </>
   );
 }
+
+const PageNumber = styled.h1`
+  color: black;
+`;
+
+const NiceBtn = styled.button`
+  background-color: #b2d260;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none; /* 밑줄 없앰 */
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+`;
+
 const ButtomDiv = styled.div`
   display: flex;
   margin: auto;
@@ -237,4 +253,7 @@ const MainLogo = styled.h1`
   font-size: 2rem;
   line-height: 1.35;
   color: white;
+`;
+const MainLink = styled(Link)`
+  text-decoration: none;
 `;
