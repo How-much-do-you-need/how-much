@@ -1,13 +1,8 @@
-drop table how_file;
-
 drop table how_product;
 
 drop table how_category;
 
 drop table how_member;
-
-
-
 create table how_category
 (
     cat_no   int auto_increment
@@ -26,6 +21,7 @@ create table how_member
     PNUM   varchar(30)                          not null comment '휴대폰 번호',
     BIRTH  date                                 null comment '생년월일',
     GENDER char     default '0'                 not null comment '성별',
+    PATH   varchar(255)                         not null,
     constraint key_name
         unique (PNUM)
 );
@@ -47,17 +43,5 @@ create table how_product
         foreign key (id) references how_member (ID),
     constraint foreign_key_name2
         foreign key (cat_no) references how_category (cat_no)
-);
-
-create table how_file
-(
-    fno     int auto_increment
-        primary key,
-    path    varchar(255) not null,
-    prod_no int          not null,
-    constraint key_name
-        unique (prod_no),
-    constraint foreign_key_name3
-        foreign key (prod_no) references how_product (prod_no)
 );
 

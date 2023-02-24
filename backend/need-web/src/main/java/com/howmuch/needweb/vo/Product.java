@@ -18,4 +18,5 @@ public class Product implements Serializable {
     private String id;
     private String cat_no;
     private Date writeDate;
+
 }
