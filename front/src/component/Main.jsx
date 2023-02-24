@@ -12,36 +12,42 @@ export default function Main() {
       name: "스팸1",
       currentPrice: "1000",
       stack: 1,
+      id: 123,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
       name: "스팸2",
       currentPrice: "1000",
       stack: 1,
+      id: 1234,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
       name: "스팸3",
       currentPrice: "1000",
       stack: 1,
+      id: 1237,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
       name: "스팸4",
       currentPrice: "1000",
       stack: 1,
+      id: 123,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
       name: "스팸5",
       currentPrice: "1000",
       stack: 1,
+      id: 123,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
       name: "스팸6",
       currentPrice: "1000",
       stack: 1,
+      id: 123,
     },
     {
       img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
@@ -125,27 +131,26 @@ export default function Main() {
   //   .catch((error) => {
   //     console.log(error);
   //   });
+
   const [first, setfirst] = useState("실패");
   const loginStatus = useSelector((state) => state.loginStatus);
-
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("교신중");
-    axios
-      .post("/auth/idCheck", null, { params: { id: "user1" } })
-      .then(function (response) {
-        console.log(response);
-        setfirst(`[성공]`);
-      })
-      .catch(function (error) {
-        console.log(error + "에러");
-      });
-  }, []);
+  const [dataState, setDataState] = useState(dummyData);
+  // useEffect(() => {
+  //   console.log("교신중");
+  //   axios
+  //     .get("/list")
+  //     .then((res) => {
+  //       setDataState(res);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error + "에러");
+  //     });
+  // }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleClickNext = () => {
-    if (currentPage < Math.ceil(dummyData.length / 9)) {
+    if (currentPage < Math.ceil(dataState.length / 9)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -162,7 +167,7 @@ export default function Main() {
 
   const startIndex = (currentPage - 1) * 9;
   const endIndex = startIndex + 9;
-  const data = dummyData.slice(startIndex, endIndex);
+  const data = dataState.slice(startIndex, endIndex);
   return (
     <>
       <MainNav>
@@ -189,7 +194,10 @@ export default function Main() {
           {data.map((ob) => {
             const card = (
               <div>
-                <img src={ob.img} alt="" />
+                <Link to={`/testitem?ob-id=${ob.id}`}>
+                  <img src={ob.img} alt="" />
+                </Link>
+
                 <p>{ob.name}</p>
                 <p>{ob.currentPrice}</p>
               </div>
