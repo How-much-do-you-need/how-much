@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import {checkLoginStatus} from "../modules/actions";
 
 export default function Main() {
   const dummyData = [
@@ -124,6 +126,9 @@ export default function Main() {
   //     console.log(error);
   //   });
   const [first, setfirst] = useState("실패");
+  const loginStatus = useSelector(state => state.loginStatus);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("교신중");
@@ -151,6 +156,10 @@ export default function Main() {
     }
   };
 
+  const onLogout = () => {
+    dispatch(checkLoginStatus(false));
+  }
+
   const startIndex = (currentPage - 1) * 9;
   const endIndex = startIndex + 9;
   const data = dummyData.slice(startIndex, endIndex);
@@ -158,12 +167,8 @@ export default function Main() {
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        <MainLink to="/upload">
-          <MainLogo>상품 등록하러가기</MainLogo>
-        </MainLink>
-        <MainLink to="/login">
-          <MainLogo>로그인</MainLogo>
-        </MainLink>
+        {loginStatus ? <></> : <MainLink to="/upload"><MainLogo>상품 등록하러가기</MainLogo></MainLink>}
+        {loginStatus ? <LogoutH onClick={onLogout}>로그아웃</LogoutH> : <MainLink to="/login"><MainLogo>로그인</MainLogo></MainLink>}
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
@@ -258,3 +263,11 @@ const MainLogo = styled.h1`
 const MainLink = styled(Link)`
   text-decoration: none;
 `;
+
+const LogoutH = styled.h1`
+  cursor: pointer;
+  color: white;
+  &: hover{
+    color: black;
+  }
+`
