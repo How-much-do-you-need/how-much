@@ -7,120 +7,7 @@ import { checkLoginStatus } from "../modules/actions";
 
 export default function Main() {
   const dummyData = [
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸1",
-      currentPrice: "1000",
-      stack: 1,
-      id: 123,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸2",
-      currentPrice: "1000",
-      stack: 1,
-      id: 1234,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸3",
-      currentPrice: "1000",
-      stack: 1,
-      id: 1237,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸4",
-      currentPrice: "1000",
-      stack: 1,
-      id: 123,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸5",
-      currentPrice: "1000",
-      stack: 1,
-      id: 123,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸6",
-      currentPrice: "1000",
-      stack: 1,
-      id: 123,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸7",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸8",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸9",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸10",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸11",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸12",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸13",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸14",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸15",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸16",
-      currentPrice: "1000",
-      stack: 1,
-    },
-    {
-      img: "https://dnvefa72aowie.cloudfront.net/origin/article/202301/3e98aba5763845724126688c4050d365e7d07944de5844d4e346f8a38e6670ac.webp?q=82&s=300x300&t=crop",
-      name: "스팸17",
-      currentPrice: "1000",
-      stack: 1,
-    },
+ 
   ];
 
   // fetch("http://localhost:8080/auth")
@@ -136,17 +23,18 @@ export default function Main() {
   const loginStatus = useSelector((state) => state.loginStatus);
   const dispatch = useDispatch();
   const [dataState, setDataState] = useState(dummyData);
-  // useEffect(() => {
-  //   console.log("교신중");
-  //   axios
-  //     .get("/list")
-  //     .then((res) => {
-  //       setDataState(res);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error + "에러");
-  //     });
-  // }, []);
+  useEffect(() => {
+    console.log("교신중");
+    axios
+      .get("/product/all")
+      .then((res) => {
+        setDataState(res.data);
+        console.log(res.data)
+      })
+      .catch(function (error) {
+        console.log(error + "에러");
+      });
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleClickNext = () => {
@@ -194,12 +82,12 @@ export default function Main() {
           {data.map((ob) => {
             const card = (
               <div>
-                <Link to={`/testitem?ob-id=${ob.id}`}>
-                  <img src={ob.img} alt="" />
+                <Link to={`/testitem?ob-id=${ob.prod_no}`}>
+                  <Card src={ob.path} alt="" />
                 </Link>
 
-                <p>{ob.name}</p>
-                <p>{ob.currentPrice}</p>
+                <p>{ob.prod_name}</p>
+                <p>{ob.price}</p>
               </div>
             );
             return card;
@@ -214,7 +102,11 @@ export default function Main() {
     </>
   );
 }
-
+const Card = styled.img`
+  width:200px;
+  height:200px;
+  object-fit:cover;
+`
 const PageNumber = styled.h1`
   color: black;
 `;

@@ -7,12 +7,12 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const itemDummyData = {
-  userName: "딩근나무",
-  itemName: "[미개봉] 애플워치 7세대",
-  imgUrl:
+  id: "딩근나무",
+  prod_name: "[미개봉] 애플워치 7세대",
+  path:
     "https://images.unsplash.com/photo-1602174528367-7ed9fc0737e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
   price: 369000,
-  desc: "사용감 별로 없는 애플워치SE 얼마면 될까요?. 작년 11월경에 잠실에 위치한 애플스토어에서 구입한 정품입니다. 구매당시 479,000원에 구입했고 중고로 30만원정도 받으면 괜찮을까요?",
+  cont: "사용감 별로 없는 애플워치SE 얼마면 될까요?. 작년 11월경에 잠실에 위치한 애플스토어에서 구입한 정품입니다. 구매당시 479,000원에 구입했고 중고로 30만원정도 받으면 괜찮을까요?",
 };
 
 export default function Item() {
@@ -20,22 +20,25 @@ export default function Item() {
   const [priceColor, setPriceColor] = useState("white");
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const [btnClick, setBtnClick] = useState(false);
   const objectId = searchParams.get("ob-id");
 
-  //   useEffect(() => {
-  //     console.log("hi");
-  //     axios
-  //       .get("/list")
-  //       .then((res) => {
-  //         res.map((object) => {
-  //           object.id === objectId && setItem(object);
-  //           return object;
-  //         });
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error + "에러");
-  //       });
-  //   }, []);
+    useEffect(() => {
+      axios
+        .get("/product/all")
+        .then((res) => {
+          console.log(22,res.data)
+          res.data.map((object) => {
+            if (object.prod_no == Number(objectId)){
+              setItem(object);
+              console.log(21,item, object);
+            }
+                      });
+        })
+        .catch(function (error) {
+          console.log(error + "에러");
+        });
+    }, []);
   const onPriceUpHandler = async () => {
     setItem((el) => {
       return {
@@ -45,6 +48,8 @@ export default function Item() {
     });
     setPriceColor("#9bf6ff");
     await priceUpColorChange("");
+    setBtnClick(true);
+    changePrice();
   };
   const onPriceDownHandler = async () => {
     setItem((el) => {
@@ -55,7 +60,20 @@ export default function Item() {
     });
     setPriceColor("#ffadad");
     await priceUpColorChange("");
+    setBtnClick(true)
+    changePrice();
   };
+
+  const changePrice = () => {
+    // axios
+    // .post("/auth/login", {...item})
+    // .then((res)=>{
+      
+    // })
+    // .catch((err)=>{
+
+    // })
+  }
 
   const priceUpColorChange = async (color) => {
     return new Promise((resolve, reject) => {
@@ -70,15 +88,15 @@ export default function Item() {
     <ItemContainer>
       <ItemInnerContainer>
         <ImgContainer>
-          <ItemImg src={item.imgUrl} alt="" />
+          <ItemImg src={item.path} alt="" />
         </ImgContainer>
         <ItemIinfoContainer>
-          <h1>{objectId}</h1>
+          <h1>{item.prod_name}</h1>
           <div>
-            <h4>작성자: {item.userName}</h4>
+            <h4>작성자: {item.id}</h4>
           </div>
           <div>
-            <h2>{item.itemName}</h2>
+            <h2>{item.cont}</h2>
           </div>
           <ItemPrice>
             <CurrentPrice>
@@ -89,14 +107,16 @@ export default function Item() {
               </CurrentPriceSpan>
             </CurrentPrice>
             <PriceBtnDiv>
-              <PriceUp onClick={onPriceUpHandler}>
-                올려요
-                <FontAwesomeIcon icon={faSmile} />
-              </PriceUp>
-              <PriceDown onClick={onPriceDownHandler}>
-                비싸요
-                <FontAwesomeIcon icon={faAngry} />
-              </PriceDown>
+              {
+                btnClick || (<><PriceUp onClick={onPriceUpHandler}>
+                  올려요
+                  <FontAwesomeIcon icon={faSmile} />
+                </PriceUp>
+                <PriceDown onClick={onPriceDownHandler}>
+                  비싸요
+                  <FontAwesomeIcon icon={faAngry} />
+                </PriceDown></>)
+              }
             </PriceBtnDiv>
           </ItemPrice>
           <ItemDesc>
@@ -138,9 +158,9 @@ const ImgContainer = styled.div`
   width: 100%;
 `;
 const ItemImg = styled.img`
-  min-width: 500px;
-  max-width: 700px;
-  height: auto;
+  width: 400px;
+  height: 400px;
+  // height: auto;
   max-height: 500px;
   border-radius: 10px;
 `;

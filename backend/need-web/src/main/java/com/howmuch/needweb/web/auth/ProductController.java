@@ -1,6 +1,7 @@
 package com.howmuch.needweb.web.auth;
 
 
+import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.service.ProductService;
 import com.howmuch.needweb.vo.Member;
 import com.howmuch.needweb.vo.Product;
@@ -18,13 +19,10 @@ import java.util.Map;
 public class ProductController {
 
     @Autowired
+    MemberService memberService;
+    @Autowired
     ProductService productService;
 
-    @GetMapping("list")
-    public void list(Model model) throws Exception{
-        System.out.println("Product List");
-        model.addAttribute("products", productService.list());
-    }
     @GetMapping("all")
     public List<Product> list() throws Exception{
         System.out.println("Product List");
@@ -103,4 +101,9 @@ public class ProductController {
         return "/auth/register";
     }
     */
+
+    @GetMapping("price")
+    public priceUpdate(Product product, int price) {
+        productService.priceUpdate(price);
+    }
 }

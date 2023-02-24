@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import spin from "../assets/spinner.gif";
+import axios from "axios";
 
 export default function Upload() {
 
@@ -18,16 +19,23 @@ export default function Upload() {
         const price = Number(productPrice.replace(",", ""))
 
         const uploadData = {
-            uploadName: productName,
-            uploadPrice: price,
-            uploadDesc: productDesc,
-            uploadImg: imgUrl,
+            id: "user1@auth.com",
+            prod_name: productName,
+            price: price,
+            cont: productDesc,
+            path: imgUrl,
+            cat_no: 1,
         }
 
-
-        console.log(uploadData);
-        
-    }
+    axios
+        .post("/product/write", {...uploadData})
+        .then((res) => {
+        console.log(res);
+        })
+        .catch((err) => {
+            console.log("로그인 실패", err);
+        });
+        }
     const onPriceHandler = (e) => {
         const value= e.target.value;
         const removedCommaValue = Number(value.replaceAll(",", ""));
