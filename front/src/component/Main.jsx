@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import {checkLoginStatus} from "../modules/actions";
+import { checkLoginStatus } from "../modules/actions";
 
 export default function Main() {
   const dummyData = [
@@ -126,7 +126,7 @@ export default function Main() {
   //     console.log(error);
   //   });
   const [first, setfirst] = useState("실패");
-  const loginStatus = useSelector(state => state.loginStatus);
+  const loginStatus = useSelector((state) => state.loginStatus);
 
   const dispatch = useDispatch();
 
@@ -158,7 +158,7 @@ export default function Main() {
 
   const onLogout = () => {
     dispatch(checkLoginStatus(false));
-  }
+  };
 
   const startIndex = (currentPage - 1) * 9;
   const endIndex = startIndex + 9;
@@ -167,8 +167,20 @@ export default function Main() {
     <>
       <MainNav>
         <MainLogo>얼마면 돼</MainLogo>
-        {loginStatus ? <MainLink to="/upload"><MainLogo>상품 등록하러가기</MainLogo></MainLink> : <></>}
-        {loginStatus ? <LogoutH onClick={onLogout}>로그아웃</LogoutH> : <MainLink to="/login"><MainLogo>로그인</MainLogo></MainLink>}
+        {loginStatus ? (
+          <MainLink to="/upload">
+            <MainLogo>상품 등록하러가기</MainLogo>
+          </MainLink>
+        ) : (
+          <></>
+        )}
+        {loginStatus ? (
+          <LogoutH onClick={onLogout}>로그아웃</LogoutH>
+        ) : (
+          <MainLink to="/login">
+            <MainLogo>로그인</MainLogo>
+          </MainLink>
+        )}
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
@@ -181,7 +193,7 @@ export default function Main() {
                 <p>{ob.name}</p>
                 <p>{ob.currentPrice}</p>
               </div>
-            ); 
+            );
             return card;
           })}
         </CardBox>
@@ -197,7 +209,6 @@ export default function Main() {
 
 const PageNumber = styled.h1`
   color: black;
-
 `;
 
 const NiceBtn = styled.button`
@@ -267,7 +278,4 @@ const MainLink = styled(Link)`
 const LogoutH = styled.h1`
   cursor: pointer;
   color: white;
-  &: hover{
-    color: black;
-  }
-`
+`;

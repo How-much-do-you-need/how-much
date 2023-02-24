@@ -90,16 +90,18 @@ public class AuthController {
   }
 
   @PostMapping("join")
-  public String join(String email, String phoneNo, Member member, Model model) throws Exception {
-    // 가입정보가 제대로된 정보인지 확인
-    if (email.length() < 5 || phoneNo.length() < 5) {
-      System.out.println("email = " + email);
-      System.out.println("phoneNo = " + phoneNo);
+  public String join(@RequestBody Member member, Model model) throws Exception {
+    System.out.println(12121212);
+    System.out.println(member);
+    //가입정보가 제대로된 정보인지 확인
+    if (member.getId().length() < 5 || member.getPhoneNo().length() < 5) {
+      System.out.println("email = " + member.getId());
+      System.out.println("phoneNo = " + member.getPhoneNo());
       return "/auth/register1";
     }
 
     // 가입정보가 중복인지 확인하고 문제없다면 가입처리
-    if(memberService.join(email, phoneNo, member)) {
+    if(memberService.join(member.getId(), member.getPhoneNo(), member)) {
       return "/auth/joinResult";
     }
 
