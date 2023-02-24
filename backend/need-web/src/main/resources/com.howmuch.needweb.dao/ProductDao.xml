@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.howmuch.needweb.dao.ProductDao">
+    <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결 -->
+    <resultMap type="product" id="productMap">
+        <id column="PROD" property="prod_no"/>
+        <result column="TITLE" property="title"/>
+        <result column="PRICE" property="price"/>
+        <result column="CONTENT" property="content"/>
+        <result column="WRITER" property="id"/>
+        <result column="CATEGORY" property="cat_no"/>
+        <result column="WDATE" property="writeDate"/>
+
+    </resultMap>
+
+    <!--상품 추가-->
+    <insert id="insertProduct" parameterType="Product">
+        insert into how_product(PROD,TITLE,PRICE,CONTENT,WRITER,CATEGORY, WDATE)
+        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no}, now())
+    </insert>
+
+    <!--상품 조회-->
+
+    <select id="findByProduct" resultMap="productMap">
+        select
+        *
+        from
+        how_product
+        where
+        PROD = #{prod_no}
+    </select>
+
+    <select id="findByCategory" resultMap="productMap">
+        select
+        *
+        from
+        how_product
+        where
+        CATEGORY = #{cat_no}
+    </select>
+
+    <select id="findAll" resultMap="productMap">
+        select
+        *
+        from
+        how_product
+        order by WDATE DESC
+    </select>
+
+    <select id="findByWriterAll" resultMap="productMap">
+        select
+        *
+        from
+        how_product
+        where
+        WRITER = #{id}
+    </select>
+
+    <delete id="delete">
+        delete from how_product
+        where PROD=#{prod_no}
+    </delete>
+
+    <update id="update" parameterType="product">
+        update how_product set
+        TITLE=#{title},
+        PRICE=#{price},
+        CONTENT=#{content},
+        WRITER=#{id},
+        CATEGORY=#={cat_no}
+        where
+        PROD=#{prod_no};
+    </update>
+</mapper>
