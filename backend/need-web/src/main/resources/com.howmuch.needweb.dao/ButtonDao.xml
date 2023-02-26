@@ -15,4 +15,23 @@
         insert into how_button(ID,PROD_NO)
         values(#{id}, #{prod_no})
     </insert>
+
+    <!--버튼 현재 상태 가져오기-->
+    <select id="checkCurrentBtn" resultType="boolean">
+        select
+        push_check
+        from
+        how_button
+        where
+        ID = #{id} and PROD_NO = #{prod_no}
+    </select>
+
+    <!--버튼 상태 업데이트-->
+    <update id="updateBtnStatus" parameterType="product">
+        update how_button set
+        push_check=#{push_check}
+        where
+        ID = #{id} and PROD_NO = #{prod_no}
+    </update>
+
 </mapper>

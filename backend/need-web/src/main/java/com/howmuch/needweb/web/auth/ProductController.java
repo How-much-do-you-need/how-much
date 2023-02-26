@@ -4,6 +4,7 @@ package com.howmuch.needweb.web.auth;
 import com.howmuch.needweb.service.ButtonService;
 import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.service.ProductService;
+import com.howmuch.needweb.vo.Button;
 import com.howmuch.needweb.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,14 +50,6 @@ public class ProductController {
         return product;
     }
 
-//    @PostMapping("update")
-//    public String update(Product product) throws Exception{
-//        if(!productService.update(product)){
-//            throw new Exception("상품 정보 변경 오류입니다.");
-//        }
-//        return "redirect:list";
-//    }
-
     @PostMapping("updatePrice")
     public void updatePrice(@RequestBody Product product) throws Exception{
         if(!productService.updatePrice(product)){
@@ -85,25 +78,11 @@ public class ProductController {
         return product;
     }
 
-    /*
-    @PostMapping("insert")
-    public String join(String email, String phoneNo, Member member, Model model) throws Exception {
-        // 가입정보가 제대로된 정보인지 확인
-        if (email.length() < 5 || phoneNo.length() < 5) {
-            System.out.println("email = " + email);
-            System.out.println("phoneNo = " + phoneNo);
-            return "/auth/register1";
-        }
-
-        // 가입정보가 중복인지 확인하고 문제없다면 가입처리
-        if(memberService.join(email, phoneNo, member)) {
-            return "/auth/joinResult";
-        }
-
-        // 이 외의 모든 올바르지 않은 가입정보에 대해 가입정보 재입력 강제하기
-        model.addAttribute("checkResult", "false");
-        return "/auth/register";
+    // 버튼 로직
+    @PutMapping("button")
+    public void pushBtn(Button button) throws Exception {
+        buttonService.updateBtnStatus(button);
     }
-    */
+
 
 }
