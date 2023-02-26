@@ -21,4 +21,5 @@ public interface ProductService {
 
     boolean updatePrice(Product product) throws Exception;
 
+    int findProdNo(String id);
 }

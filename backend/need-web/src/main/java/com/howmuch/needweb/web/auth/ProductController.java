@@ -1,15 +1,13 @@
 package com.howmuch.needweb.web.auth;
 
 
+import com.howmuch.needweb.service.ButtonService;
 import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.service.ProductService;
-import com.howmuch.needweb.vo.Member;
 import com.howmuch.needweb.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +20,8 @@ public class ProductController {
     MemberService memberService;
     @Autowired
     ProductService productService;
+    @Autowired
+    ButtonService buttonService;
 
     @GetMapping("all")
     public List<Product> list() throws Exception{
@@ -32,6 +32,11 @@ public class ProductController {
     public void write(@RequestBody Product product) throws Exception {
         System.out.println("product = " + product);
         productService.insert(product);
+        // 버튼 컬럼도 자동으로 생성되어야 한다.
+        int prod_no = productService.findProdNo(product.getId());
+        System.out.println("prod_no = " + prod_no);
+        System.out.println("product.getId() = " + product.getId());
+        buttonService.makeBtnColumn(product.getId(), prod_no);
     }
     @PostMapping("detail")
     public Product detail(int prod_no) throws Exception{
@@ -44,13 +49,13 @@ public class ProductController {
         return product;
     }
 
-    @PostMapping("update")
-    public String update(Product product) throws Exception{
-        if(!productService.update(product)){
-            throw new Exception("상품 정보 변경 오류입니다.");
-        }
-        return "redirect:list";
-    }
+//    @PostMapping("update")
+//    public String update(Product product) throws Exception{
+//        if(!productService.update(product)){
+//            throw new Exception("상품 정보 변경 오류입니다.");
+//        }
+//        return "redirect:list";
+//    }
 
     @PostMapping("updatePrice")
     public void updatePrice(@RequestBody Product product) throws Exception{
@@ -58,7 +63,6 @@ public class ProductController {
             throw new Exception("가격 정보 변경 오류입니다.");
         }
         return;
-        //return "redirect:list";
     }
     @GetMapping("delete")
     public String delete(int prod_id) throws Exception{
@@ -102,8 +106,4 @@ public class ProductController {
     }
     */
 
-    @GetMapping("price")
-    public priceUpdate(Product product, int price) {
-        productService.priceUpdate(price);
-    }
 }

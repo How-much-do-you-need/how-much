@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.howmuch.needweb.dao.ButtonDao">
+    <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결 -->
+    <resultMap type="button" id="buttonMap">
+        <result column="ID" property="id"/>
+        <result column="PROD_NO" property="prod_no"/>
+        <result column="PUSH_CHECK" property="push_check"/>
+    </resultMap>
+
+    <!--버튼 추가-->
+    <insert id="makeBtnColumn" parameterType="Button">
+        insert into how_button(ID,PROD_NO)
+        values(#{id}, #{prod_no})
+    </insert>
+</mapper>

@@ -77,4 +77,15 @@
         where
         PROD_NO=#{prod_no};
     </update>
+
+    <select id="findProdNo" resultType="int">
+        select
+        prod_no
+        from
+        how_product
+        where
+        ID = #{id}
+        ORDER BY prod_no DESC LIMIT 1
+    </select>
+
 </mapper>

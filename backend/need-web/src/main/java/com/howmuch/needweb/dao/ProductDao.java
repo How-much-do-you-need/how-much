@@ -25,4 +25,6 @@ public interface ProductDao {
 
     List<Product> findByWriterAll(String id);
 
+
+    int findProdNo(String id);
 }

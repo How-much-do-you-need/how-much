@@ -49,7 +49,7 @@ export default function Item() {
     setPriceColor("#9bf6ff");
     await priceUpColorChange("");
     setBtnClick(true);
-    changePrice();
+    changePrice(item.price * 1.1);
   };
   const onPriceDownHandler = async () => {
     setItem((el) => {
@@ -61,18 +61,18 @@ export default function Item() {
     setPriceColor("#ffadad");
     await priceUpColorChange("");
     setBtnClick(true)
-    changePrice();
+    changePrice(item.price * 0.9);
   };
 
-  const changePrice = () => {
-    // axios
-    // .post("/auth/login", {...item})
-    // .then((res)=>{
-      
-    // })
-    // .catch((err)=>{
-
-    // })
+  const changePrice = (chagnePrice) => {
+    axios
+    .post("/product/updatePrice", {...item, price: chagnePrice})
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err + "가 발생");
+    })
   }
 
   const priceUpColorChange = async (color) => {

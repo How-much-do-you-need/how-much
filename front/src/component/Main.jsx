@@ -105,7 +105,6 @@ export default function Main() {
 const Card = styled.img`
   width:200px;
   height:200px;
-  object-fit:cover;
 `
 const PageNumber = styled.h1`
   color: black;
