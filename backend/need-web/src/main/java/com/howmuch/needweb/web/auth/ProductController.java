@@ -45,7 +45,13 @@ public class ProductController {
 
         return product;
     }
-
+    @PutMapping("update")
+    public void update(@RequestBody Product product) throws Exception{
+        System.out.println("update product = " + product);
+        if(!productService.update(product)){
+            throw new Exception("상품 정보 변경 오류입니다.");
+        }
+    }
     @PostMapping("updatePrice")
     public void updatePrice(@RequestBody Product product, @RequestParam("id") String id) throws Exception{
         if(!productService.updatePrice(product)){
@@ -79,8 +85,12 @@ public class ProductController {
     // 버튼 로직
     @PutMapping("button")
     public void pushBtn(Button button) throws Exception {
-        buttonService.updateBtnStatus(button);
+        System.out.println("button = " + button);
+        // 로그인한 사용자, 상품 번호
+        buttonService.checkCurrentBtn(button.getId(), button.getProd_no());
     }
+
+
 
 
 }

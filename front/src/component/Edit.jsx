@@ -1,13 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import spin from "../assets/spinner.gif";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import {Link} from "react-router-dom";
-import { useEffect } from "react";
+import {Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Edit() {
-
+    const {email, paddword} = useSelector(state => state.loginData);
     const [imgUploadStatus, setImgUploadStatus] = useState(true);
     const [loading, setLoading] = useState(false);
     const [imgUrl, setImgUrl] = useState("");
@@ -18,19 +18,23 @@ export default function Edit() {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
+
+    const navigate = useNavigate();
     
     const editParam = searchParams.get("ob-id");
     const editInfo = editParam.split("?");
 
-    const editId = editInfo[0][1];
+    const editId = editInfo[0];
     const curPrice = editInfo[1].split("=")[1];
     const editName = editInfo[2].split("=")[1];
     const editDesc = editInfo[3].split("=")[1];
     const editImg = editInfo[4].split("=")[1];
     
-    console.log(editInfo, editName.split("=")[1]);
+    // console.log(editInfo, editName.split("=")[1]);
+    // console.log(email + "Edit 로그인 정보");
 
     useEffect(() => {
+        setProductName(editName);
         setImgUrl(editImg);
         setProductDesc(editDesc);
     }, [])
@@ -40,7 +44,7 @@ export default function Edit() {
         // const price = Number(productPrice.replace(",", ""))
 
         const uploadData = {
-            id: "user1@auth.com",
+            id: email,
             prod_name: productName,
             price: curPrice,
             cont: productDesc,
@@ -52,9 +56,9 @@ export default function Edit() {
         console.log(productName, curPrice, productDesc, imgUrl, editId);
 
     axios
-        .update("/product/update", {...uploadData})
+        .put("/product/update", {...uploadData})
         .then((res) => {
-        console.log(res);
+            navigate(`/testitem?ob-id=${editId}`);
         })
         .catch((err) => {
             console.log("로그인 실패", err);
@@ -108,11 +112,11 @@ export default function Edit() {
                 <div>
                     <UploadDiv>
                         <label htmlFor="price">상품 이름</label>
-                        <UploadInput name="price" id="price" type="string" onChange={onProductNameHandler}/>
+                        <UploadInput name="price" id="price" type="string" onChange={onProductNameHandler} value={productName}/>
                     </UploadDiv>
                     <UploadDiv>
                         <label htmlFor="price">상품 설명</label>
-                        <UploadTextArea name="price" id="price" type="textarea" onChange={onDescHandler} value={editDesc}/>
+                        <UploadTextArea name="price" id="price" type="textarea" onChange={onDescHandler} value={productDesc}/>
                     </UploadDiv>
                     <UploadDiv>
                         <ImgLabel htmlFor="img">상품의 이미지를 올려주세요</ImgLabel>

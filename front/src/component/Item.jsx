@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -24,6 +24,13 @@ export default function Item() {
   const [btnClick, setBtnClick] = useState(false);
   const objectId = searchParams.get("ob-id");
   const { email, password } = useSelector(state => state.loginData);
+
+  const navigate = useNavigate();
+
+  const onBackBtn = () => {
+    navigate(-1);
+  }
+
 
   console.log(email + "로그인된 유저 정보");
     useEffect(() => {
@@ -83,7 +90,7 @@ export default function Item() {
       setTimeout(() => {
         setPriceColor(color);
         resolve();
-      }, 200);
+      }, 300);
     });
   };
 
@@ -94,6 +101,7 @@ export default function Item() {
           <ItemImg src={item.path} alt="" />
         </ImgContainer>
         <ItemIinfoContainer>
+          <Link to="/"><PriceDown>뒤로가기</PriceDown></Link>
           <h1>{item.prod_name}</h1>
           <div>
             <h4>작성자: {item.id}</h4>
@@ -118,10 +126,10 @@ export default function Item() {
                 <PriceDown onClick={onPriceDownHandler}>
                   비싸요
                   <FontAwesomeIcon icon={faAngry} />
-                  <Link to={`/edit?ob-id=${objectId}?prod-price=${item.price}?prod-name=${item.prod_name}?prod-desc=${item.cont}?prod-img=${item.path}`}><PriceUp>Edit</PriceUp></Link>
                 </PriceDown></>)
               }
             </PriceBtnDiv>
+            <Link to={`/edit?ob-id=${objectId}?prod-price=${item.price}?prod-name=${item.prod_name}?prod-desc=${item.cont}?prod-img=${item.path}`}><PriceUp>Edit</PriceUp></Link>
           </ItemPrice>
           <ItemDesc>
             <div>{itemDummyData.desc}</div>
