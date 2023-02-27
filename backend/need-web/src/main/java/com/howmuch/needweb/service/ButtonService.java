@@ -12,4 +12,6 @@ public interface ButtonService {
     int updateBtnStatus(Button button);
 
     Boolean checkCurrentBtn(String id, int prod_no);
+
+    int findButton(String id, int prod_no);
 }

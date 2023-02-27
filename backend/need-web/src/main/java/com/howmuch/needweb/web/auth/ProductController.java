@@ -57,10 +57,9 @@ public class ProductController {
         if(!productService.updatePrice(product)){
             throw new Exception("가격 정보 변경 오류입니다.");
         }
-        System.out.println("member.id  = " +id); // 버튼을 누른 사람의 ID
-        System.out.println("product.getProd_no() = " + product.getProd_no()); // 버튼 눌린 게시글
-        buttonService.makeBtnColumn(id, product.getProd_no());
     }
+
+
     @GetMapping("delete")
     public String delete(int prod_id) throws Exception{
         if(!productService.delete(prod_id)){
@@ -83,12 +82,29 @@ public class ProductController {
     }
 
     // 버튼 로직
-    @PutMapping("button")
-    public void pushBtn(Button button) throws Exception {
-        System.out.println("button = " + button);
-        // 로그인한 사용자, 상품 번호
-        buttonService.checkCurrentBtn(button.getId(), button.getProd_no());
+    @PostMapping("button")
+    public boolean insertButton(@RequestParam("id") String id, @RequestParam("prod_no") int prod_no) throws Exception{
+        System.out.println("id  = " +id); // 버튼을 누른 사람의 ID
+        System.out.println("prod_no = " + prod_no); // 버튼 눌린 게시글
+        System.out.println("buttonService.findButton(id, prod_no) = " + buttonService.findButton(id, prod_no));
+        if(buttonService.findButton(id, prod_no) == 0) {
+            buttonService.makeBtnColumn(id, prod_no);
+        }
+        return buttonService.checkCurrentBtn(id, prod_no);
     }
+    @PostMapping("pushButton")
+    public void pushButton(@RequestBody Button button) throws Exception{
+        System.out.println("button = " + button);
+        buttonService.updateBtnStatus(button);
+    }
+
+//    @GetMapping("buttonStatus")
+//    public boolean buttonStatus(@RequestParam("id") String id, @RequestParam("prod_no") int prod_no) throws Exception {
+//        System.out.println("id = " + id);
+//        System.out.println("prod_no = " + prod_no);
+//        // 로그인한 사용자, 상품 번호
+//        return buttonService.checkCurrentBtn(id, prod_no);
+//    }
 
 
 

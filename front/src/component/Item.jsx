@@ -25,54 +25,80 @@ export default function Item() {
   const objectId = searchParams.get("ob-id");
   const { email, password } = useSelector(state => state.loginData);
 
-  const navigate = useNavigate();
-
-  const onBackBtn = () => {
-    navigate(-1);
-  }
-
-
-  console.log(email + "로그인된 유저 정보");
-    useEffect(() => {
-      axios
-        .get("/product/all")
-        .then((res) => {
-          console.log(22,res.data)
-          res.data.map((object) => {
-            if (object.prod_no == Number(objectId)){
-              setItem(object);
-              console.log(21,item, object);
+  // console.log(email + "로그인된 유저 정보");
+  useEffect(() => {
+    axios
+    .get("/product/all")
+    .then((res) => {
+      // console.log(22,res.data)
+      res.data.map((object) => {
+        if (object.prod_no == Number(objectId)){
+          setItem(object);
+              // console.log(21,item, object);
             }
-                      });
+          });
         })
         .catch(function (error) {
           console.log(error + "에러");
         });
-    }, []);
-  const onPriceUpHandler = async () => {
-    setItem((el) => {
-      return {
-        ...el,
-        price: el.price * 1.1,
+      }, []);
+
+      useEffect(()=>{
+        console.log(email, objectId, item, "상품 클릭시!!!!!!!!!!!!!!!!!!!!!!!!!1");
+        axios.post("/product/button", null, {params: {id: email, prod_no: objectId}})
+          .then((res) => {
+            setBtnClick(res.data);
+            console.log(res.data + "버튼 클릭 확인");
+          })
+          .catch((err) => {
+            console.log(err, "버튼 클릭 확인 실패");
+          })
+      }, []);
+
+
+      const onPriceUpHandler = async () => {
+        setItem((el) => {
+          return {
+            ...el,
+            price: el.price * 1.1,
+          };
+        });
+        setPriceColor("#9bf6ff");
+        await priceUpColorChange("");
+        setBtnClick(true);
+        changePrice(item.price * 1.1);
+        onBtnClickAxios();
       };
-    });
-    setPriceColor("#9bf6ff");
-    await priceUpColorChange("");
-    setBtnClick(true);
-    changePrice(item.price * 1.1);
+      const onPriceDownHandler = async () => {
+        setItem((el) => {
+          return {
+            ...el,
+            price: el.price * 0.9,
+          };
+        });
+        setPriceColor("#ffadad");
+        await priceUpColorChange("");
+        setBtnClick(true)
+        changePrice(item.price * 0.9);
+        onBtnClickAxios();
   };
-  const onPriceDownHandler = async () => {
-    setItem((el) => {
-      return {
-        ...el,
-        price: el.price * 0.9,
-      };
-    });
-    setPriceColor("#ffadad");
-    await priceUpColorChange("");
-    setBtnClick(true)
-    changePrice(item.price * 0.9);
-  };
+
+  const onBtnClickAxios = () => {
+
+    const button = {
+      push_check: true,
+      id: email,
+      prod_no: objectId,
+    }
+    axios.post("/product/pushButton", {...button})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
 
   const changePrice = (chagnePrice) => {
     axios
@@ -84,6 +110,7 @@ export default function Item() {
       console.log(err + "가 발생");
     })
   }
+
 
   const priceUpColorChange = async (color) => {
     return new Promise((resolve, reject) => {
@@ -226,4 +253,7 @@ const PriceDown = styled.div`
 
 const ItemDesc = styled.div`
   font-weight: bold;
+
+
+
 `;

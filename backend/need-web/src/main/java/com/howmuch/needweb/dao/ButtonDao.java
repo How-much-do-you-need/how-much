@@ -17,4 +17,5 @@ public interface ButtonDao {
     int updateBtnStatus(Button button);
 
 
+    int findButton(@Param("id") String id, @Param("prod_no") int prod_no);
 }
