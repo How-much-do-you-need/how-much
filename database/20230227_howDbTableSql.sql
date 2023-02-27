@@ -6,8 +6,6 @@ drop table how_category;
 
 drop table how_member;
 
-
-
 create table how_category
 (
     cat_no   int auto_increment
@@ -48,9 +46,10 @@ create table how_product
 
 create table how_button
 (
-    push_check tinyint(1) default 1 not null,
+    push_check tinyint(1) default 0 not null,
     prod_no    int                  not null,
     id         varchar(100)         not null,
+    primary key (id, prod_no),
     constraint button_member
         foreign key (id) references how_member (ID),
     constraint button_product
