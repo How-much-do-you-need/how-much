@@ -161,11 +161,13 @@ public class AuthController {
   }
 
   @GetMapping("checkLogin")
-  public Boolean checkLogin(HttpSession session) throws Exception {
-    if(session.getAttribute("loginMember") == null) {
-      return false;
+  public Member checkLogin(HttpSession session) throws Exception {
+    Member member = (Member) session.getAttribute("loginMember");
+    System.out.println("member = " + member);
+    if(member == null) {
+      return null;
     } else {
-      return true;
+      return member;
     }
   }
 }

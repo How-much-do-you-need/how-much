@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -118,6 +118,7 @@ export default function Item() {
                 <PriceDown onClick={onPriceDownHandler}>
                   비싸요
                   <FontAwesomeIcon icon={faAngry} />
+                  <Link to={`/edit?ob-id=${objectId}?prod-price=${item.price}?prod-name=${item.prod_name}?prod-desc=${item.cont}?prod-img=${item.path}`}><PriceUp>Edit</PriceUp></Link>
                 </PriceDown></>)
               }
             </PriceBtnDiv>
