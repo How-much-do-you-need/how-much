@@ -55,7 +55,7 @@
         ID = #{id}
     </select>
 
-    <delete id="delete">
+    <delete id="productDelete" parameterType="int">
         delete from how_product
         where PROD_NO=#{prod_no}
     </delete>

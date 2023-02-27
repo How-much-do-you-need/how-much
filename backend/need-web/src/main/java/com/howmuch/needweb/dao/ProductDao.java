@@ -3,6 +3,7 @@ package com.howmuch.needweb.dao;
 import com.howmuch.needweb.vo.Member;
 import com.howmuch.needweb.vo.Product;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface ProductDao {
 
     int updatePrice(Product product);
 
-    int delete(int prod_no);
+    int productDelete(@Param("prod_no") int prod_no);
 
     List<Product> findAll();
 

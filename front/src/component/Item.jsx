@@ -25,6 +25,8 @@ export default function Item() {
   const objectId = searchParams.get("ob-id");
   const { email, password } = useSelector(state => state.loginData);
 
+  const navigate = useNavigate();
+
   // console.log(email + "로그인된 유저 정보");
   useEffect(() => {
     axios
@@ -121,6 +123,20 @@ export default function Item() {
     });
   };
 
+
+  const fileDelete = () => {
+    // console.log(objectId, typeof(parseInt(objectId)));
+    // console.log(item);
+    axios.delete('/product/delete', {...item})
+      .then((res) => {
+        console.log("DELETE 성공");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("DELETE 실패");
+      })
+  }
+
   return (
     <ItemContainer>
       <ItemInnerContainer>
@@ -129,6 +145,7 @@ export default function Item() {
         </ImgContainer>
         <ItemIinfoContainer>
           <Link to="/"><PriceDown>뒤로가기</PriceDown></Link>
+          <PriceUp onClick={fileDelete}>삭제하기</PriceUp>
           <h1>{item.prod_name}</h1>
           <div>
             <h4>작성자: {item.id}</h4>
