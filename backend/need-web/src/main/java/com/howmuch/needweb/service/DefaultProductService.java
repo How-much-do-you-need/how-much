@@ -30,6 +30,18 @@ public class DefaultProductService implements ProductService{
         return productDao.update(product) > 0;
     }
 
+    @Override
+    public boolean updatePrice(Product product) throws Exception{
+        System.out.println(productDao.updatePrice(product));
+        return productDao.updatePrice(product) > 0;
+    }
+
+
+    @Override
+    public int findProdNo(String id) {
+        return productDao.findProdNo(id);
+    }
+
     @Transactional
     @Override
     public boolean delete(int prod_no) throws Exception{

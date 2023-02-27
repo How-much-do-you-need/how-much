@@ -11,13 +11,12 @@
         <result column="CONT" property="cont"/>
         <result column="ID" property="id"/>
         <result column="CAT_NO" property="cat_no"/>
-        <result column="PATH" property="path"/>
     </resultMap>
 
     <!--상품 추가-->
     <insert id="insertProduct" parameterType="Product">
         insert into how_product(PROD_NO,PROD_NAME,PRICE,CONT,ID,CAT_NO, PATH)
-        values(#{prod_no}, #{title}, #{price}, #{content}, #{id}, #{cat_no}, #{path})
+        values(#{prod_no}, #{prod_name}, #{price}, #{cont}, #{id}, #{cat_no}, #{path})
     </insert>
 
     <!--상품 조회-->
@@ -63,12 +62,30 @@
 
     <update id="update" parameterType="product">
         update how_product set
-        PROD_NAME=#{PROD_NAME},
+        PROD_NAME=#{prod_name},
         PRICE=#{price},
-        CONT=#{content},
+        CONT=#{cont},
         ID=#{id},
-        CAT_NO=#={cat_no}
+        CAT_NO=#{cat_no}
         where
         PROD_NO=#{prod_no};
     </update>
+
+    <update id="updatePrice" parameterType="product">
+        update how_product set
+        PRICE=#{price}
+        where
+        PROD_NO=#{prod_no};
+    </update>
+
+    <select id="findProdNo" resultType="int">
+        select
+        prod_no
+        from
+        how_product
+        where
+        ID = #{id}
+        ORDER BY prod_no DESC LIMIT 1
+    </select>
+
 </mapper>

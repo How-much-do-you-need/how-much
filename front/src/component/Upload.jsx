@@ -18,22 +18,22 @@ export default function Upload() {
     const price = Number(productPrice.replace(",", ""));
 
     const uploadData = {
-      uploadName: productName,
-      uploadPrice: price,
-      uploadDesc: productDesc,
-      uploadImg: imgUrl,
+      id: "user1@auth.com",
+      prod_name: productName,
+      price: price,
+      cont: productDesc,
+      path: imgUrl,
+      cat_no: 1,
     };
 
     axios
-      .post("/write", { ...uploadData })
+      .post("/product/write", { ...uploadData })
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err + "상품 등록 실패");
+        console.log("로그인 실패", err);
       });
-
-    console.log(uploadData);
   };
   const onPriceHandler = (e) => {
     const value = e.target.value;

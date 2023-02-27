@@ -17,10 +17,14 @@ public interface ProductDao {
 
     int update(Product product);
 
+    int updatePrice(Product product);
+
     int delete(int prod_no);
 
     List<Product> findAll();
 
     List<Product> findByWriterAll(String id);
 
+
+    int findProdNo(String id);
 }

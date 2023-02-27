@@ -1,14 +1,14 @@
 package com.howmuch.needweb.web.auth;
 
 
+import com.howmuch.needweb.service.ButtonService;
+import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.service.ProductService;
-import com.howmuch.needweb.vo.Member;
+import com.howmuch.needweb.vo.Button;
 import com.howmuch.needweb.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +18,12 @@ import java.util.Map;
 public class ProductController {
 
     @Autowired
+    MemberService memberService;
+    @Autowired
     ProductService productService;
+    @Autowired
+    ButtonService buttonService;
 
-    @GetMapping("list")
-    public void list(Model model) throws Exception{
-        System.out.println("Product List");
-        model.addAttribute("products", productService.list());
-    }
     @GetMapping("all")
     public List<Product> list() throws Exception{
         System.out.println("Product List");
@@ -34,26 +33,30 @@ public class ProductController {
     public void write(@RequestBody Product product) throws Exception {
         System.out.println("product = " + product);
         productService.insert(product);
+        // 버튼 컬럼도 자동으로 생성되어야 한다.
+        int prod_no = productService.findProdNo(product.getId());
+        System.out.println("prod_no = " + prod_no);
+        System.out.println("product.getId() = " + product.getId());
+        buttonService.makeBtnColumn(product.getId(), prod_no);
     }
-    @GetMapping("detail")
-    public void detail(int prod_no, Map map) throws Exception{
+    @PostMapping("detail")
+    public Product detail(int prod_no) throws Exception{
         Product product = productService.get(prod_no);
 
         if (product == null){
             throw new Exception("해당 게시물은 존재하지 않습니다.");
         }
 
-        map.put("product", product);
+        return product;
     }
 
-    @PostMapping("update")
-    public String update(Product product) throws Exception{
-        if(!productService.update(product)){
-            throw new Exception("상품 정보 변경 오류입니다.");
+    @PostMapping("updatePrice")
+    public void updatePrice(@RequestBody Product product) throws Exception{
+        if(!productService.updatePrice(product)){
+            throw new Exception("가격 정보 변경 오류입니다.");
         }
-        return "redirect:list";
+        return;
     }
-
     @GetMapping("delete")
     public String delete(int prod_id) throws Exception{
         if(!productService.delete(prod_id)){
@@ -62,38 +65,24 @@ public class ProductController {
         return "redirect:list";
     }
 
-    @PostMapping("findName/{id}")
+    @PostMapping("findName")
     @ResponseBody
-    public String findId(@PathVariable("id") String id)  throws Exception {
+    public List<Product> findId(String id)  throws Exception {
         Map<String, String> map = new HashMap();
         map.put("id", id);
-        System.out.println(id);
         List<Product> product = productService.searchWriter(id);
-        System.out.println(product.size());
         if (product == null) {
-            return "게시물이 존재하지 않습니다.";
+            System.out.println("게시물이 존재하지 않습니다.");
+            return null;
         }
-        return product.toString();
+        return product;
     }
 
-    /*
-    @PostMapping("insert")
-    public String join(String email, String phoneNo, Member member, Model model) throws Exception {
-        // 가입정보가 제대로된 정보인지 확인
-        if (email.length() < 5 || phoneNo.length() < 5) {
-            System.out.println("email = " + email);
-            System.out.println("phoneNo = " + phoneNo);
-            return "/auth/register1";
-        }
-
-        // 가입정보가 중복인지 확인하고 문제없다면 가입처리
-        if(memberService.join(email, phoneNo, member)) {
-            return "/auth/joinResult";
-        }
-
-        // 이 외의 모든 올바르지 않은 가입정보에 대해 가입정보 재입력 강제하기
-        model.addAttribute("checkResult", "false");
-        return "/auth/register";
+    // 버튼 로직
+    @PutMapping("button")
+    public void pushBtn(Button button) throws Exception {
+        buttonService.updateBtnStatus(button);
     }
-    */
+
+
 }
