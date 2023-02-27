@@ -5,9 +5,9 @@
 <mapper namespace="com.howmuch.needweb.dao.ButtonDao">
     <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결 -->
     <resultMap type="button" id="buttonMap">
+        <result column="PUSH_CHECK" property="push_check"/>
         <result column="ID" property="id"/>
         <result column="PROD_NO" property="prod_no"/>
-        <result column="PUSH_CHECK" property="push_check"/>
     </resultMap>
 
     <!--버튼 추가-->

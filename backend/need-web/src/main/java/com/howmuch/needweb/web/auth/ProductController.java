@@ -5,6 +5,7 @@ import com.howmuch.needweb.service.ButtonService;
 import com.howmuch.needweb.service.MemberService;
 import com.howmuch.needweb.service.ProductService;
 import com.howmuch.needweb.vo.Button;
+import com.howmuch.needweb.vo.Member;
 import com.howmuch.needweb.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,6 @@ public class ProductController {
     public void write(@RequestBody Product product) throws Exception {
         System.out.println("product = " + product);
         productService.insert(product);
-        // 버튼 컬럼도 자동으로 생성되어야 한다.
-        int prod_no = productService.findProdNo(product.getId());
-        System.out.println("prod_no = " + prod_no);
-        System.out.println("product.getId() = " + product.getId());
-        buttonService.makeBtnColumn(product.getId(), prod_no);
     }
     @PostMapping("detail")
     public Product detail(int prod_no) throws Exception{
@@ -51,11 +47,13 @@ public class ProductController {
     }
 
     @PostMapping("updatePrice")
-    public void updatePrice(@RequestBody Product product) throws Exception{
+    public void updatePrice(@RequestBody Product product, @RequestParam("id") String id) throws Exception{
         if(!productService.updatePrice(product)){
             throw new Exception("가격 정보 변경 오류입니다.");
         }
-        return;
+        System.out.println("member.id  = " +id); // 버튼을 누른 사람의 ID
+        System.out.println("product.getProd_no() = " + product.getProd_no()); // 버튼 눌린 게시글
+        buttonService.makeBtnColumn(id, product.getProd_no());
     }
     @GetMapping("delete")
     public String delete(int prod_id) throws Exception{

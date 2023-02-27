@@ -4,6 +4,7 @@ import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const itemDummyData = {
@@ -22,7 +23,9 @@ export default function Item() {
   const searchParams = new URLSearchParams(location.search);
   const [btnClick, setBtnClick] = useState(false);
   const objectId = searchParams.get("ob-id");
+  const { email, password } = useSelector(state => state.loginData);
 
+  console.log(email + "로그인된 유저 정보");
     useEffect(() => {
       axios
         .get("/product/all")
@@ -66,7 +69,7 @@ export default function Item() {
 
   const changePrice = (chagnePrice) => {
     axios
-    .post("/product/updatePrice", {...item, price: chagnePrice})
+    .post("/product/updatePrice", {...item, price: chagnePrice}, {params: {id: email}})
     .then((res)=>{
       console.log(res);
     })
