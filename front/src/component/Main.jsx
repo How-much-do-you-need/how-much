@@ -10,19 +10,20 @@ export default function Main() {
  
   ];
 
-  // fetch("http://localhost:8080/auth")
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     console.log(data);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-
   const [first, setfirst] = useState("실패");
   const loginStatus = useSelector((state) => state.loginStatus);
   const dispatch = useDispatch();
   const [dataState, setDataState] = useState(dummyData);
+
+  useEffect(() => {
+    const logId = sessionStorage.getItem("loginId");
+    if (logId) {
+      dispatch(checkLoginStatus(true));
+    }
+    // console.log("로그인 상태확인 USE EFFECT", a);
+  }, [])
+
+
   useEffect(() => {
     console.log("교신중");
     axios
@@ -50,6 +51,7 @@ export default function Main() {
   };
 
   const onLogout = () => {
+    sessionStorage.removeItem("loginId");
     dispatch(checkLoginStatus(false));
   };
 
@@ -158,7 +160,7 @@ const MainNav = styled.div`
   left: 0;
   width: 100%;
   max-width: 100vw;
-  max-height: 5vw;
+  max-height: 7vw;
 
   z-index: 999;
   margin-bottom: 120px;

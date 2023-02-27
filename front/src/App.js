@@ -4,6 +4,7 @@ import Main from "./component/Main";
 import Register from "./component/Register";
 import Upload from "./component/Upload";
 import Item from "./component/Item";
+import Edit from "./component/Edit";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/upload" element={<Upload />}></Route>
         <Route path="/testitem" element={<Item />}></Route>
+        <Route path="/edit" element={<Edit />}></Route>
       </Routes>
     </BrowserRouter>
   );

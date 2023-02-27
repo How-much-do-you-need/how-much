@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 public class Button implements Serializable {
-    boolean push_check;
-    String id;
-    int prod_no;
+    private boolean push_check;
+    private String id;
+    private int prod_no;
 }

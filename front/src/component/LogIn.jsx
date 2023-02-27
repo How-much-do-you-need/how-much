@@ -84,6 +84,7 @@ export default function LogIn(props) {
   // form이 제출되었을 때 실행
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    sessionStorage.setItem("loginId", email);
 
     const userLoginInfo = {
       id: email,

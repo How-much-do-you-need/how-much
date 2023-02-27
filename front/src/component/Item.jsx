@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const itemDummyData = {
@@ -22,51 +23,86 @@ export default function Item() {
   const searchParams = new URLSearchParams(location.search);
   const [btnClick, setBtnClick] = useState(false);
   const objectId = searchParams.get("ob-id");
+  const { email, password } = useSelector(state => state.loginData);
 
-    useEffect(() => {
-      axios
-        .get("/product/all")
-        .then((res) => {
-          console.log(22,res.data)
-          res.data.map((object) => {
-            if (object.prod_no == Number(objectId)){
-              setItem(object);
-              console.log(21,item, object);
+  // console.log(email + "로그인된 유저 정보");
+  useEffect(() => {
+    axios
+    .get("/product/all")
+    .then((res) => {
+      // console.log(22,res.data)
+      res.data.map((object) => {
+        if (object.prod_no == Number(objectId)){
+          setItem(object);
+              // console.log(21,item, object);
             }
-                      });
+          });
         })
         .catch(function (error) {
           console.log(error + "에러");
         });
-    }, []);
-  const onPriceUpHandler = async () => {
-    setItem((el) => {
-      return {
-        ...el,
-        price: el.price * 1.1,
+      }, []);
+
+      useEffect(()=>{
+        console.log(email, objectId, item, "상품 클릭시!!!!!!!!!!!!!!!!!!!!!!!!!1");
+        axios.post("/product/button", null, {params: {id: email, prod_no: objectId}})
+          .then((res) => {
+            setBtnClick(res.data);
+            console.log(res.data + "버튼 클릭 확인");
+          })
+          .catch((err) => {
+            console.log(err, "버튼 클릭 확인 실패");
+          })
+      }, []);
+
+
+      const onPriceUpHandler = async () => {
+        setItem((el) => {
+          return {
+            ...el,
+            price: el.price * 1.1,
+          };
+        });
+        setPriceColor("#9bf6ff");
+        await priceUpColorChange("");
+        setBtnClick(true);
+        changePrice(item.price * 1.1);
+        onBtnClickAxios();
       };
-    });
-    setPriceColor("#9bf6ff");
-    await priceUpColorChange("");
-    setBtnClick(true);
-    changePrice(item.price * 1.1);
+      const onPriceDownHandler = async () => {
+        setItem((el) => {
+          return {
+            ...el,
+            price: el.price * 0.9,
+          };
+        });
+        setPriceColor("#ffadad");
+        await priceUpColorChange("");
+        setBtnClick(true)
+        changePrice(item.price * 0.9);
+        onBtnClickAxios();
   };
-  const onPriceDownHandler = async () => {
-    setItem((el) => {
-      return {
-        ...el,
-        price: el.price * 0.9,
-      };
-    });
-    setPriceColor("#ffadad");
-    await priceUpColorChange("");
-    setBtnClick(true)
-    changePrice(item.price * 0.9);
-  };
+
+  const onBtnClickAxios = () => {
+
+    const button = {
+      push_check: true,
+      id: email,
+      prod_no: objectId,
+    }
+    axios.post("/product/pushButton", {...button})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
 
   const changePrice = (chagnePrice) => {
     axios
-    .post("/product/updatePrice", {...item, price: chagnePrice})
+    .post("/product/updatePrice", {...item, price: chagnePrice}, {params: {id: email}})
     .then((res)=>{
       console.log(res);
     })
@@ -75,12 +111,13 @@ export default function Item() {
     })
   }
 
+
   const priceUpColorChange = async (color) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setPriceColor(color);
         resolve();
-      }, 200);
+      }, 300);
     });
   };
 
@@ -91,6 +128,7 @@ export default function Item() {
           <ItemImg src={item.path} alt="" />
         </ImgContainer>
         <ItemIinfoContainer>
+          <Link to="/"><PriceDown>뒤로가기</PriceDown></Link>
           <h1>{item.prod_name}</h1>
           <div>
             <h4>작성자: {item.id}</h4>
@@ -118,6 +156,7 @@ export default function Item() {
                 </PriceDown></>)
               }
             </PriceBtnDiv>
+            <Link to={`/edit?ob-id=${objectId}?prod-price=${item.price}?prod-name=${item.prod_name}?prod-desc=${item.cont}?prod-img=${item.path}`}><PriceUp>Edit</PriceUp></Link>
           </ItemPrice>
           <ItemDesc>
             <div>{itemDummyData.desc}</div>
@@ -214,4 +253,7 @@ const PriceDown = styled.div`
 
 const ItemDesc = styled.div`
   font-weight: bold;
+
+
+
 `;
