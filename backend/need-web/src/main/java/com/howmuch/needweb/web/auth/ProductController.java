@@ -63,7 +63,7 @@ public class ProductController {
     @DeleteMapping("delete")
     public void productDelete(@RequestBody Product product) throws Exception{
         System.out.println("prod_no = " + product.getProd_no());
-        if(productService.productDelete(product.getProd_no()) == 1){
+        if(!productService.productDelete(product.getProd_no())){
             throw new Exception("상품 삭제 오류입니다.");
         }
     }

@@ -20,7 +20,7 @@ public interface ProductDao {
 
     int updatePrice(Product product);
 
-    int productDelete(@Param("prod_no") int prod_no);
+    int productDelete(int prod_no);
 
     List<Product> findAll();
 

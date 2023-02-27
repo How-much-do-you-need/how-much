@@ -79,7 +79,6 @@ export default function Main() {
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
-        <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
           {data.map((ob) => {
             const card = (

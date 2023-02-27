@@ -127,7 +127,7 @@ export default function Item() {
   const fileDelete = () => {
     // console.log(objectId, typeof(parseInt(objectId)));
     // console.log(item);
-    axios.delete('/product/delete', {...item})
+    axios.delete('/product/delete', {data: item})
       .then((res) => {
         console.log("DELETE 성공");
         navigate("/");
