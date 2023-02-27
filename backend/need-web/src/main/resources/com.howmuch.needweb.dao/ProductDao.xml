@@ -11,6 +11,7 @@
         <result column="CONT" property="cont"/>
         <result column="ID" property="id"/>
         <result column="CAT_NO" property="cat_no"/>
+        <result column="PATH" property="path"/>
     </resultMap>
 
     <!--상품 추가-->
