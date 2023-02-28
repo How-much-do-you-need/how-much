@@ -61,16 +61,8 @@
         where PROD_NO=#{prod_no}
     </delete>
 
-    <update id="update" parameterType="int">
-        update how_product set
-        PROD_NAME=#{prod_name},
-        PRICE=#{price},
-        CONT=#{cont},
-        ID=#{id},
-        CAT_NO=#{cat_no},
-        PATH=#{path}
-        where
-        PROD_NO=#{prod_no};
+    <update id="update" parameterType="product">
+        update how_product set PROD_NAME=#{prod_name}, PRICE=#{price}, CONT=#{cont}, ID=#{id}, CAT_NO=#{cat_no}, PATH=#{path} where PROD_NO=#{prod_no};
     </update>
 
     <update id="updatePrice" parameterType="product">
