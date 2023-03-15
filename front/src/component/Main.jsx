@@ -6,9 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { checkLoginStatus } from "../modules/actions";
 
 export default function Main() {
-  const dummyData = [
- 
-  ];
+  const dummyData = [];
 
   const [first, setfirst] = useState("실패");
   const loginStatus = useSelector((state) => state.loginStatus);
@@ -21,8 +19,7 @@ export default function Main() {
       dispatch(checkLoginStatus(true));
     }
     // console.log("로그인 상태확인 USE EFFECT", a);
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     console.log("교신중");
@@ -30,7 +27,7 @@ export default function Main() {
       .get("/product/all")
       .then((res) => {
         setDataState(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch(function (error) {
         console.log(error + "에러");
@@ -79,7 +76,6 @@ export default function Main() {
       </MainNav>
       <MainDiv>
         <HeadComment>이 가격 만족 하십니까?</HeadComment>
-        <h1>백엔드와의 교신에 {first}했습니다</h1>
         <CardBox>
           {data.map((ob) => {
             const card = (
@@ -105,9 +101,9 @@ export default function Main() {
   );
 }
 const Card = styled.img`
-  width:200px;
-  height:200px;
-`
+  width: 200px;
+  height: 200px;
+`;
 const PageNumber = styled.h1`
   color: black;
 `;

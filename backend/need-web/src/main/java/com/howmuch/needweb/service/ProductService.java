@@ -11,7 +11,7 @@ public interface ProductService {
     boolean insert(Product product) throws Exception;
 
     boolean update(Product product) throws Exception;
-    boolean delete(int prod_no) throws Exception;
+    boolean productDelete(int prod_no) throws Exception;
 
     List<Product> list() throws Exception;
 

@@ -34,7 +34,6 @@ export default function Register() {
     (state) => state.loginMsg
   );
   const { isEmail, isPassword } = useSelector((state) => state.isLoginValid);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

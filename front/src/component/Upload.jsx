@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import spin from "../assets/spinner.gif";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Upload() {
   const [imgUploadStatus, setImgUploadStatus] = useState(false);
@@ -12,6 +13,7 @@ export default function Upload() {
   const [productDesc, setProductDesc] = useState("");
 
   const inputImgRef = useRef();
+  const navigate = useNavigate();
 
   const onImgFormSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +32,10 @@ export default function Upload() {
       .post("/product/write", { ...uploadData })
       .then((res) => {
         console.log(res);
+        navigate("/");
       })
       .catch((err) => {
-        console.log("로그인 실패", err);
+        console.log("업로드 실패", err);
       });
   };
   const onPriceHandler = (e) => {

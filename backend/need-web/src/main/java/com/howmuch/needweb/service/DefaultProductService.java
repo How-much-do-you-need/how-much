@@ -44,8 +44,8 @@ public class DefaultProductService implements ProductService{
 
     @Transactional
     @Override
-    public boolean delete(int prod_no) throws Exception{
-        return productDao.delete(prod_no) > 0;
+    public boolean productDelete(int prod_no) throws Exception{
+        return productDao.productDelete(prod_no) > 0;
     }
     @Override
     public List<Product> list() throws Exception{

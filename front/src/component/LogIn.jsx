@@ -16,7 +16,9 @@ import {
 export default function LogIn(props) {
   const { email, password } = useSelector((state) => state.loginData);
   const { isEmail, isPassword } = useSelector((state) => state.isLoginValid);
-  const { emailMessage, passwordMessage } = useSelector((state) => state.loginMsg);
+  const { emailMessage, passwordMessage } = useSelector(
+    (state) => state.loginMsg
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -89,56 +91,44 @@ export default function LogIn(props) {
     const userLoginInfo = {
       id: email,
       password: password,
-    }
+    };
     console.log(userLoginInfo);
     axios
-    .post("/auth/login", null, {params: {id: email, password: password}})
-    .then((res) => {
-      console.log(res);
-     
-      if (res.data){
-        dispatch(checkLoginStatus(true));
-        navigate("/");
-      }else{
-        dispatch(
-          setPasswordMessage(
-            "비밀번호가 일치하지 않습니다."
-          )
-        );
-      }
-      
-      // navigate("/login");
+      .post("/auth/login", null, { params: { id: email, password: password } })
+      .then((res) => {
+        console.log(res);
+
+        if (res.data) {
+          dispatch(checkLoginStatus(true));
+          navigate("/");
+        } else {
+          dispatch(setPasswordMessage("비밀번호가 일치하지 않습니다."));
+        }
+
+        // navigate("/login");
       })
       .catch((err) => {
         console.log("로그인 실패", err);
       });
-
 
     // navigate("/");
   };
 
   return (
     <LogMain>
-
       <h1>로그인</h1>
 
       <LoginForm onSubmit={formSubmitHandler}>
         <InputIp>
           <InputDiv>
             <p>아이디</p>
-            <LoginInput
-              type="text"
-              onChange={onChangeAboutEmail}
-            />
+            <LoginInput type="text" onChange={onChangeAboutEmail} />
             <p style={{ color: isEmail ? "green" : "red" }}>{emailMessage}</p>
           </InputDiv>
 
           <InputDiv>
             <p>비밀번호</p>
-            <LoginInput
-              type="password"
-              onChange={onChagneAboutPassword}
-            />
+            <LoginInput type="password" onChange={onChagneAboutPassword} />
             <p style={{ color: isPassword ? "green" : "red" }}>
               {passwordMessage}
             </p>
@@ -151,11 +141,21 @@ export default function LogIn(props) {
         </Find>
 
         <LogInBtnBox>
-          <LoginBtn isEmail={isEmail} isPassword={isPassword} disabled={btnDisabled()}>로그인</LoginBtn>
+          <LoginBtn
+            isEmail={isEmail}
+            isPassword={isPassword}
+            disabled={btnDisabled()}
+          >
+            로그인
+          </LoginBtn>
         </LogInBtnBox>
 
         <LogInBtnBox>
-          <SignInBtn onClick={() => { navigate("/register");}}>
+          <SignInBtn
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
             회원가입
           </SignInBtn>
         </LogInBtnBox>
@@ -163,12 +163,10 @@ export default function LogIn(props) {
         <ToHomeLink to="/">
           <LoginH3Tag>홈으로</LoginH3Tag>
         </ToHomeLink>
-
       </LoginForm>
     </LogMain>
   );
 }
-
 
 const LogMain = styled.div`
   display: flex;
@@ -196,7 +194,7 @@ const LoginForm = styled.form`
   flex-direction: column;
   max-width: 600px;
   width: 100%;
-`
+`;
 
 const LoginInput = styled.input`
   width: 100%;
@@ -205,10 +203,10 @@ const LoginInput = styled.input`
   font-size: 22px;
   background-color: #ececec;
   &:focus {
-      outline: none;
-      border-color: black;
+    outline: none;
+    border-color: black;
   }
-`
+`;
 
 const Find = styled.div`
   float: right;
@@ -255,7 +253,7 @@ const LoginBtn = styled.button`
 
 const LoginH3Tag = styled.h3`
   color: black;
-`
+`;
 const ToHomeLink = styled(Link)`
   text-decoration: none;
-`
+`;

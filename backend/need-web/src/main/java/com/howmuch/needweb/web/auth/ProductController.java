@@ -60,12 +60,12 @@ public class ProductController {
     }
 
 
-    @GetMapping("delete")
-    public String delete(int prod_id) throws Exception{
-        if(!productService.delete(prod_id)){
+    @DeleteMapping("delete")
+    public void productDelete(@RequestBody Product product) throws Exception{
+        System.out.println("prod_no = " + product.getProd_no());
+        if(!productService.productDelete(product.getProd_no())){
             throw new Exception("상품 삭제 오류입니다.");
         }
-        return "redirect:list";
     }
 
     @PostMapping("findName")
