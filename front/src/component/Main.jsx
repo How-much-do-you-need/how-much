@@ -28,7 +28,7 @@ export default function Main() {
     console.log("교신중");
     console.log("업데이트 됨. ")
     axios
-      .get("http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com:8080/product/all")
+      .get("https://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com:8080/product/all")
       .then((res) => {
         setDataState(res.data);
         console.log(res.data)
@@ -40,7 +40,7 @@ export default function Main() {
 
   useEffect(()=>{
     axios
-    .get("http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all")
+    .get("https://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all")
     .then((res) => {
       console.log("8080없을때 성공");
       setDataState(res.data);
