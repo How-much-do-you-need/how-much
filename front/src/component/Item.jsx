@@ -36,7 +36,7 @@ export default function Item() {
       res.data.map((object) => {
         if (object.prod_no == Number(objectId)){
           setItem(object);
-              // console.log(21,item, object);
+              // console.log(1111111+);
             }
           });
         })
