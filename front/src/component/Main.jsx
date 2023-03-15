@@ -26,8 +26,9 @@ export default function Main() {
 
   useEffect(() => {
     console.log("교신중");
+    console.log("업데이트 됨. ")
     axios
-      .get("/product/all")
+      .get("http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com:8080/product/all")
       .then((res) => {
         setDataState(res.data);
         console.log(res.data)
@@ -36,6 +37,20 @@ export default function Main() {
         console.log(error + "에러");
       });
   }, []);
+
+  useEffect(()=>{
+    axios
+    .get("http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all")
+    .then((res) => {
+      console.log("8080없을때 성공");
+      setDataState(res.data);
+      console.log(res.data)
+      })
+      .catch(function (error) {
+        console.log("8080없을때 실패");
+        console.log(error + "에러");
+      });
+  }, [])
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleClickNext = () => {
