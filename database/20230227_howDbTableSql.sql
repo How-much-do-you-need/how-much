@@ -39,9 +39,11 @@ create table how_product
     cat_no    int          not null,
     path      varchar(500) not null,
     constraint product_category
-        foreign key (cat_no) references how_category (cat_no),
+        foreign key (cat_no) references how_category (cat_no)
+            on update cascade on delete cascade,
     constraint product_member
         foreign key (id) references how_member (ID)
+            on update cascade on delete cascade
 );
 
 create table how_button
@@ -51,8 +53,10 @@ create table how_button
     id         varchar(100)         not null,
     primary key (id, prod_no),
     constraint button_member
-        foreign key (id) references how_member (ID),
+        foreign key (id) references how_member (ID)
+            on update cascade on delete cascade,
     constraint button_product
         foreign key (prod_no) references how_product (prod_no)
+            on update cascade on delete cascade
 );
 
