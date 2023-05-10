@@ -25,7 +25,4 @@ public class NeedWebApplication {
 		model.addAttribute("id", id);
 		return "main";
 	}
-
-
-
 }
