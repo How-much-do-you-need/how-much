@@ -37,13 +37,11 @@ export default function Main() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all"
-      )
-      .then((res) => {
-        console.log("8080없을때 성공");
-        setDataState(res.data);
-        console.log(res.data);
+    .get("/product/all")
+    .then((res) => {
+      console.log("8080없을때 성공");
+      setDataState(res.data);
+      console.log(res.data)
       })
       .catch(function (error) {
         console.log("8080없을때 실패");

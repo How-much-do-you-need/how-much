@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo Installing Gradle...
+      - apt-get -y update && apt-get -y install zip unzip
+      - wget https://services.gradle.org/distributions/gradle-7.2-bin.zip
+      - unzip gradle-7.2-bin.zip
+      - export PATH=$PATH:./gradle-7.2/bin
+  build:
+    commands:
+      - echo Starting build phase...
+      - ./gradlew build
