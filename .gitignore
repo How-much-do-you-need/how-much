@@ -23,5 +23,5 @@
 hs_err_pid*
 
 # mac.
-.DS_Store
-.env
+*.DS_Store
+*.env
