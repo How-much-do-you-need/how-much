@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import {
   isValidEmail,
   isValidPassword,
@@ -15,9 +16,7 @@ import {
 export default function LogIn(props) {
   const { email, password } = useSelector((state) => state.loginData);
   const { isEmail, isPassword } = useSelector((state) => state.isLoginValid);
-  const { emailMessage, passwordMessage } = useSelector(
-    (state) => state.loginMsg
-  );
+  const { emailMessage, passwordMessage } = useSelector((state) => state.loginMsg);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -85,113 +84,136 @@ export default function LogIn(props) {
   // form이 제출되었을 때 실행
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(checkLoginStatus(true));
-    // sessionStorage.setItem("loginStatus", true);
-    // const sesstionSttus = sessionStorage.getItem("loginStatus");
-    navigate("/");
-    // console.log(`입력한 아이디: ${email}`);
-    // console.log(`입력한 비밀번호: ${password}`);
+    sessionStorage.setItem("loginId", email);
+
+    const userLoginInfo = {
+      id: email,
+      password: password,
+    }
+    console.log(userLoginInfo);
+    axios
+    .post("/auth/login", null, {params: {id: email, password: password}})
+    .then((res) => {
+      console.log(res);
+     
+      if (res.data){
+        dispatch(checkLoginStatus(true));
+        navigate("/");
+      }else{
+        dispatch(
+          setPasswordMessage(
+            "비밀번호가 일치하지 않습니다."
+          )
+        );
+      }
+      
+      // navigate("/login");
+      })
+      .catch((err) => {
+        console.log("로그인 실패", err);
+      });
+
+
+    // navigate("/");
   };
 
   return (
     <LogMain>
-      <Link to="/">
-        <h1>to home</h1>
-      </Link>
-      <h1>LogIn</h1>
-      <form onSubmit={formSubmitHandler}>
-        <LogMent>로그인</LogMent>
+
+      <h1>로그인</h1>
+
+      <LoginForm onSubmit={formSubmitHandler}>
         <InputIp>
-          <InputDivId>
-            <InputPId
+          <InputDiv>
+            <p>아이디</p>
+            <LoginInput
               type="text"
               onChange={onChangeAboutEmail}
-              placeholder="아이디를 입력해주세요"
             />
             <p style={{ color: isEmail ? "green" : "red" }}>{emailMessage}</p>
-          </InputDivId>
-          <InputDivPw>
-            <InputPPW
+          </InputDiv>
+
+          <InputDiv>
+            <p>비밀번호</p>
+            <LoginInput
               type="password"
               onChange={onChagneAboutPassword}
-              placeholder="비밀번호를 입력해주세요"
             />
             <p style={{ color: isPassword ? "green" : "red" }}>
               {passwordMessage}
             </p>
-          </InputDivPw>
+          </InputDiv>
         </InputIp>
 
         <Find>
-          <FindId>아이디 찾기</FindId>
+          <FindId>아이디 찾기 / </FindId>
           <FindPw>비밀번호 찾기</FindPw>
         </Find>
 
-        <LogInB>
-          <LoginBtn
-            isEmail={isEmail}
-            isPassword={isPassword}
-            disabled={btnDisabled()}
-          >
-            {" "}
-            로그인{" "}
-          </LoginBtn>
-        </LogInB>
-        <LogInB>
-          <SignIn
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
+        <LogInBtnBox>
+          <LoginBtn isEmail={isEmail} isPassword={isPassword} disabled={btnDisabled()}>로그인</LoginBtn>
+        </LogInBtnBox>
+
+        <LogInBtnBox>
+          <SignInBtn onClick={() => { navigate("/register");}}>
             회원가입
-          </SignIn>
-        </LogInB>
-      </form>
+          </SignInBtn>
+        </LogInBtnBox>
+
+        <ToHomeLink to="/">
+          <LoginH3Tag>홈으로</LoginH3Tag>
+        </ToHomeLink>
+
+      </LoginForm>
     </LogMain>
   );
 }
-const LogMent = styled.div`
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 20px;
-`;
+
+
 const LogMain = styled.div`
-  width: 1050px;
-  margin-top: 90px;
-  margin-bottom: 60px;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  align-items: center;
-  font-size: 12px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ececec;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  font-size: 12px;
 `;
 const InputIp = styled.div`
   margin-top: 30px;
 `;
-const InputDivId = styled.div`
-  position: relative;
+const InputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
 `;
-const InputPId = styled.input`
-  padding: 0 11px 1px 15px;
-  height: 54px;
-  font-size: 20px;
-  font-weight: 400;
-`;
-const InputDivPw = styled.div`
-  position: relative;
-  margin: 10px;
-`;
-const InputPPW = styled.input`
-  padding: 0 11px 1px 15px;
-  height: 54px;
-  font-size: 20px;
-  font-weight: 400;
-`;
+
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+`
+
+const LoginInput = styled.input`
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid gray;
+  font-size: 22px;
+  background-color: #ececec;
+  &:focus {
+      outline: none;
+      border-color: black;
+  }
+`
+
 const Find = styled.div`
   float: right;
   display: flex;
+  margin-bottom: 10px;
 `;
 const FindId = styled.div`
   float: left;
@@ -200,8 +222,7 @@ const FindId = styled.div`
 const FindPw = styled.div`
   align-items: flex-end;
 `;
-const LogInB = styled.div`
-  padding: 11px 12px 1px 15px;
+const LogInBtnBox = styled.div`
   height: 54px;
   font-size: 20px;
   font-weight: 400;
@@ -211,13 +232,12 @@ const LogInB = styled.div`
   left: 10px;
 `;
 
-const SignIn = styled.button`
+const SignInBtn = styled.button`
   width: 100%;
   border: none;
-  border-radius: 15px;
   font-size: 20px;
   padding: 5px 15px;
-  background-color: #00b4d8;
+  background-color: #343a40;
   color: white;
   font-weight: bold;
 `;
@@ -225,11 +245,17 @@ const SignIn = styled.button`
 const LoginBtn = styled.button`
   width: 100%;
   border: none;
-  border-radius: 15px;
   font-size: 20px;
   padding: 5px 15px;
   background-color: ${(props) =>
-    props.isEmail && props.isPassword ? "#00b4d8" : "#e5e5e5"};
+    props.isEmail && props.isPassword ? "#001219" : "#e5e5e5"};
   color: white;
   font-weight: bold;
 `;
+
+const LoginH3Tag = styled.h3`
+  color: black;
+`
+const ToHomeLink = styled(Link)`
+  text-decoration: none;
+`

@@ -3,6 +3,9 @@ import Auth from "./component/Auth";
 import LogIn from "./component/LogIn";
 import Main from "./component/Main";
 import Register from "./component/Register";
+import Upload from "./component/Upload";
+import Item from "./component/Item";
+import Edit from "./component/Edit";
 
 function App() {
   return (
