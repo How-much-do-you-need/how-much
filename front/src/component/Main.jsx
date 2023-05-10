@@ -6,9 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { checkLoginStatus } from "../modules/actions";
 
 export default function Main() {
-  const dummyData = [
- 
-  ];
+  const dummyData = [];
 
   const [first, setfirst] = useState("실패");
   const loginStatus = useSelector((state) => state.loginStatus);
@@ -21,36 +19,37 @@ export default function Main() {
       dispatch(checkLoginStatus(true));
     }
     // console.log("로그인 상태확인 USE EFFECT", a);
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     console.log("교신중");
     // console.log("업데이트 됨. ")
     axios
-      .get("https://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com:8080/product/all")
-      .then((res) => {
-        setDataState(res.data);
-        console.log(res.data)
+      .post("/auth/idCheck", null, { params: { id: "mingu" } })
+      .then(function (response) {
+        console.log(response);
+        setfirst(`[성공]`);
       })
       .catch(function (error) {
         console.log(error + "에러");
       });
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    .get("http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all")
-    .then((res) => {
-      console.log("8080없을때 성공");
-      setDataState(res.data);
-      console.log(res.data)
+      .get(
+        "http://ec2-3-37-93-48.ap-northeast-2.compute.amazonaws.com/product/all"
+      )
+      .then((res) => {
+        console.log("8080없을때 성공");
+        setDataState(res.data);
+        console.log(res.data);
       })
       .catch(function (error) {
         console.log("8080없을때 실패");
         console.log(error + "에러");
       });
-  }, [])
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleClickNext = () => {
@@ -119,9 +118,9 @@ export default function Main() {
   );
 }
 const Card = styled.img`
-  width:200px;
-  height:200px;
-`
+  width: 200px;
+  height: 200px;
+`;
 const PageNumber = styled.h1`
   color: black;
 `;
